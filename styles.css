@@ -1,0 +1,134 @@
+/* styles.css */
+
+body {
+    
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* 确保内容占满整个视窗高度 */
+    background-color: white; /* 柔和的背景颜色 */
+    font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Source Han Serif', 'source-han-serif-sc', 'PT Serif', 'SongTi SC', 'MicroSoft Yahei', sans-serif;
+    color: #333; /* 主体文字颜色 */
+    overflow: hidden; /* 防止超出可视区域的动画元素显示 */
+    position: relative; /* 确保伪元素定位 */
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column; /* 默认垂直排列以支持移动设备 */
+    justify-content: center;
+    align-items: stretch; /* 使子元素高度相同 */
+    width: 100%; /* 全宽 */
+    max-width: 1200px; /* 最大宽度 */
+    gap: 20px; /* 间距 */
+    z-index: 1; /* 使内容显示在动画上方 */
+    padding: 20px; /* 内边距适应小屏幕 */
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* 垂直排列内容 */
+    justify-content: center; /* 垂直居中对齐内容 */
+    align-items: center; /* 水平居中对齐内容 */
+    text-align: center;
+    background-color: #ffffff; /* 白色背景 */
+    padding: 20px; /* 内边距适应小屏幕 */
+    border-radius: 10px; /* 圆角 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 轻微阴影 */
+    width: 100%; /* 宽度占满父容器 */
+    max-width: 500px; /* 限制容器宽度 */
+    height: auto; /* 自动调整高度 */
+    flex-grow: 1; /* 使容器填满可用空间，确保高度一致 */
+}
+
+.logo {
+    max-width: 80%;
+    height: auto;
+    margin-bottom: 20px; /* 下方间距 */
+    display: block; /* 确保块级元素以获得居中效果 */
+}
+
+.slogan {
+    font-size: 20px; /* 增加字体大小 */
+    color: #444; /* 更深的文字颜色 */
+    margin-top: 15px;
+    font-weight: bold; /* 加粗文字 */
+    line-height: 1.5; /* 行高 */
+}
+
+.description {
+    font-size: 16px; /* 合适的字体大小 */
+    color: #666; /* 较浅的文字颜色 */
+    margin-top: 15px;
+    line-height: 1.7; /* 更大的行高以提高可读性 */
+    text-align: left; /* 左对齐 */
+    text-indent: 2em; /* 首行缩进 */
+    max-width: 100%; /* 允许全宽展示 */
+}
+
+.coming-soon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.coming-soon {
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* 响应式设计：针对中等大小屏幕 */
+@media (min-width: 600px) {
+    .wrapper {
+        flex-direction: row; /* 横向排列 */
+        padding: 40px; /* 增加内边距 */
+    }
+
+    .container {
+        flex: 1; /* 让容器均分空间 */
+        max-width: 45%; /* 限制容器宽度 */
+        margin: 10px; /* 添加外边距 */
+    }
+}
+
+/* 响应式设计：针对大屏幕 */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 500px; /* 调整容器宽度 */
+    }
+}
+
+
+.steam-button {
+    display: inline-block;
+    text-decoration: none;
+    padding: 10px 15px;
+    margin-top: 20px;
+    background-color: #1b2838;  /* Steam深色背景色 */
+    color: #fff;
+    border-radius: 3px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.steam-button:hover {
+    background-color: #2a475e;  /* Steam hover色 */
+}
+
+.coming-soon-container {
+    background-image: url('icon.jpg'); /* 这里替换为你的背景图文件名 */
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    box-sizing: border-box;
+    color: #fff; /* 背景可能较暗，这里用白色字体现信息 */
+}
+
+.game-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}

@@ -1,127 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invisible Rabbit</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.geekzu.org" rel="preconnect" />
-    <link crossorigin="" href="https://gapis.geekzu.org/g-fonts/" rel="preconnect" />
-    <link href="https://fonts.geekzu.org/css2?family=Noto+Serif+SC&amp;display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Invisible Rabbit</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS 动画库 -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <div class="wrapper">
-        <!-- 左边的方框 -->
-        <div class="container">
-            <img src="logo.png" alt="Studio Logo" class="logo">
+  <!-- 主体内容 -->
+  <main class="main-content">
+    <!-- 工作室介绍 -->
+    <section class="studio-section text-center" data-aos="fade-up">
+      <img src="logo.png" alt="Logo" class="logo-fixed mb-3" style="width:240px;height:240px;">
+      <p class="studio-desc mx-auto">
+        我们是一个充满热情的独立游戏工作室，致力于打造与众不同的游戏体验。我们专注于探索那些大公司往往不愿涉足的游戏类型和创意核心玩法。正因如此，我们的作品通常会深入探索某些偏执或极端的游戏类型，以独特的视角和大胆的创新为玩家带来耳目一新的体验。我们相信，游戏不应被定义或局限，我们的目标是打破常规，创造令人难以忘怀的作品。
+      </p>
+    </section>
 
-            <!-- Slogan -->
-            <p class="slogan" id="slogan-en">Redefining the Infinite Possibilities of Gaming</p>
-            <p class="slogan" id="slogan-zh" style="display: none;">重新定义游戏的无限可能</p>
-            <p class="slogan" id="slogan-ja" style="display: none;">ゲームの無限の可能性を再定義する</p>
-            <p class="slogan" id="slogan-ko" style="display: none;">게임의 무한한 가능성을 재정의하다</p>
-
-            <!-- 工作室介绍 -->
-            <p class="description" id="description-en">We are a passionate independent game studio dedicated to creating
-                unique gaming experiences. We focus on exploring game genres and creative core mechanics that large
-                companies are often reluctant to pursue. As a result, our works typically delve into some niche or
-                extreme types of games, bringing fresh perspectives and bold innovations to our players. We believe that
-                games should not be defined or confined, and our goal is to break the mold and create unforgettable
-                experiences.</p>
-            <p class="description" id="description-zh" style="display: none;">
-                我们是一个充满热情的独立游戏工作室，致力于打造与众不同的游戏体验。我们专注于探索那些大公司往往不愿涉足的游戏类型和创意核心玩法。正因如此，我们的作品通常会深入探索某些偏执或极端的游戏类型，以独特的视角和大胆的创新为玩家带来耳目一新的体验。我们相信，游戏不应被定义或局限，我们的目标是打破常规，创造令人难以忘怀的作品。
+    <!-- 游戏展示 -->
+    <section class="game-section" data-aos="fade-up" data-aos-delay="200">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 mb-4 mb-lg-0">
+            <div class="game-banner-wrap">
+              <img src="banner.jpg" alt="Invisible Room Banner" class="game-banner img-fluid rounded shadow">
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <h2 class="game-title mb-3">看不见的房间 <span class="badge bg-danger ms-2">Invisible Room</span></h2>
+            <p class="game-desc">
+              玩家将在"看不见的房间"中探索未知，挑战感官极限。每一次尝试都将带来全新的体验，打破你对空间与规则的认知。
             </p>
-            <p class="description" id="description-ja" style="display: none;">
-                私たちは、ユニークなゲーム体験の創造に専念する情熱的なインディーゲームスタジオです。大手企業が手を出しにくいゲームジャンルや創造的なコアメカニクスの探求に焦点を当てています。その結果、私たちの作品は、ニッチまたは極端なタイプのゲームを掘り下げ、プレイヤーに新しい視点と大胆な革新を提供します。私たちは、ゲームは定義されるべきでも制限されるべきでもないと信じており、型破りな体験を作り出し、忘れられない体験を生み出すことを目指しています。
-            </p>
-            <p class="description" id="description-ko" style="display: none;">저희는 독특한 게임 경험을 창조하는 데 전념하는 열정적인 독립 게임
-                스튜디오입니다. 대기업들이 종종 추구하지 않는 게임 장르와 창의적인 핵심 메커니즘을 탐구하는 데 중점을 둡니다. 그 결과, 저희 작품은 보통 틈새 또는 극단적인 유형의 게임을 깊이
-                탐구하여 플레이어에게 신선한 시각과 대담한 혁신을 제공합니다. 우리는 게임이 정의되거나 제한되어서는 안 된다고 믿으며, 우리의 목표는 틀을 깨고 잊을 수 없는 경험을 만드는 것입니다.
-            </p>
+            <a href="#" class="btn btn-steam mt-3" target="_blank">
+              <i class="fab fa-steam"></i> 前往 Steam 页面
+            </a>
+          </div>
         </div>
+      </div>
+    </section>
+  </main>
 
-        <!-- 右边的方框 -->
-        <div class="container coming-soon-container">
-            <p class="game-title" id="game-title-en">Invisible Room</p>
-            <p class="game-title" id="game-title-zh" style="display: none;">看不见的房间</p>
-            <p class="game-title" id="game-title-ja" style="display: none;">見えない部屋</p>
-            <p class="game-title" id="game-title-ko" style="display: none;">보이지 않는 방</p>
+  <!-- 页脚 -->
+  <footer class="footer text-center py-4 mt-5 fixed-bottom">
+    <small>&copy; 2025 Invisible Rabbit. All Rights Reserved.</small>
+  </footer>
 
-
-            <!-- 保留结构但清空内容 -->
-            <p class="coming-soon" id="coming-soon-en"></p>
-            <p class="coming-soon" id="coming-soon-zh" style="display: none;"></p>
-            <p class="coming-soon" id="coming-soon-ja" style="display: none;"></p>
-            <p class="coming-soon" id="coming-soon-ko" style="display: none;"></p>
-
-
-            <!-- Steam风格按钮 -->
-            <a href="#" target="_blank" class="steam-button"
-                id="steam-button-en">View on Steam</a>
-            <a href="#" target="_blank" class="steam-button"
-                id="steam-button-zh" style="display: none;">Steam商店页面</a>
-            <a href="#" target="_blank" class="steam-button"
-                id="steam-button-ja" style="display: none;">Steamページへ</a>
-            <a href="#" target="_blank" class="steam-button"
-                id="steam-button-ko" style="display: none;">Steam 페이지로</a>
-
-
-        </div>
-    </div>
-
-    <script>
-        // 获取浏览器语言
-        const userLang = navigator.language || navigator.userLanguage;
-
-        // 根据浏览器语言切换显示内容
-        if (userLang.startsWith('zh')) {
-            document.getElementById('slogan-en').style.display = 'none';
-            document.getElementById('description-en').style.display = 'none';
-            document.getElementById('coming-soon-en').style.display = 'none';
-            document.getElementById('game-title-en').style.display = 'none';
-            document.getElementById('steam-button-en').style.display = 'none';
-
-            document.getElementById('slogan-zh').style.display = 'block';
-            document.getElementById('description-zh').style.display = 'block';
-            document.getElementById('coming-soon-zh').style.display = 'block';
-            document.getElementById('game-title-zh').style.display = 'block';
-            document.getElementById('steam-button-zh').style.display = 'inline-block';
-        } else if (userLang.startsWith('ja')) {
-            document.getElementById('slogan-en').style.display = 'none';
-            document.getElementById('description-en').style.display = 'none';
-            document.getElementById('coming-soon-en').style.display = 'none';
-            document.getElementById('game-title-en').style.display = 'none';
-            document.getElementById('steam-button-en').style.display = 'none';
-
-            document.getElementById('slogan-ja').style.display = 'block';
-            document.getElementById('description-ja').style.display = 'block';
-            document.getElementById('coming-soon-ja').style.display = 'block';
-            document.getElementById('game-title-ja').style.display = 'block';
-            document.getElementById('steam-button-ja').style.display = 'inline-block';
-        } else if (userLang.startsWith('ko')) {
-            document.getElementById('slogan-en').style.display = 'none';
-            document.getElementById('description-en').style.display = 'none';
-            document.getElementById('coming-soon-en').style.display = 'none';
-            document.getElementById('game-title-en').style.display = 'none';
-            document.getElementById('steam-button-en').style.display = 'none';
-
-            document.getElementById('slogan-ko').style.display = 'block';
-            document.getElementById('description-ko').style.display = 'block';
-            document.getElementById('coming-soon-ko').style.display = 'block';
-            document.getElementById('game-title-ko').style.display = 'block';
-            document.getElementById('steam-button-ko').style.display = 'inline-block';
-        } else {
-            // 默认英文
-            document.getElementById('steam-button-en').style.display = 'inline-block';
-        }
-
-
-
-
-    </script>
+  <!-- JS库 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ once: true });
+  </script>
 </body>
-
 </html>

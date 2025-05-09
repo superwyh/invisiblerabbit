@@ -1,131 +1,148 @@
-/* 移除 overflow: hidden; 让移动端可以自由滚动 */
 body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-family: 'Montserrat', 'Noto Serif SC', 'Microsoft Yahei', sans-serif;
+    background: #fff;
+    color: #222;
+    padding-top: 70px;
     min-height: 100vh;
-    background-color: white; 
-    font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Source Han Serif', 'source-han-serif-sc', 'PT Serif', 'SongTi SC', 'MicroSoft Yahei', sans-serif;
-    color: #333; 
-    /* 去掉overflow: hidden; 允许纵向滚动 */
-    overflow-x: hidden; 
-    overflow-y: auto; 
-    position: relative; 
-    box-sizing: border-box;  /* 确保盒模型计算更直观 */
+    position: relative;
+    overflow-x: hidden;
 }
-
-.wrapper {
-    display: flex;
-    flex-direction: column; /* 默认移动端上下排列 */
-    justify-content: center;
-    align-items: stretch; 
-    width: 100%; 
-    max-width: 1200px; 
-    gap: 20px; 
-    z-index: 1; 
-    padding: 20px; 
-    box-sizing: border-box; 
+body::before {
+    content: '';
+    position: fixed;
+    z-index: -1;
+    left: 0; top: 0; width: 100vw; height: 100vh;
+    background: url('https://www.transparenttextures.com/patterns/noise.png');
+    opacity: 0.12;
+    pointer-events: none;
 }
-
-.container {
-    display: flex;
-    flex-direction: column; 
-    justify-content: center; 
-    align-items: center; 
-    text-align: center;
-    background-color: #ffffff; 
-    padding: 20px; 
-    border-radius: 10px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    width: 100%; /* 在移动端下占满屏幕宽度 */
-    height: auto; 
+.navbar {
+    background: rgba(255,255,255,0.95) !important;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 16px 0 rgba(80,0,0,0.08);
+}
+.studio-logo, .studio-logo-large {
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    background: #fff;
+}
+.studio-logo-large {
+    height: 96px;
+    width: 96px;
+}
+.logo-fixed {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    filter: none;
+}
+.studio-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #222;
+    letter-spacing: 2px;
+}
+.studio-title-main {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #222;
+    letter-spacing: 3px;
+    text-shadow: none;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+    animation: none;
+}
+.studio-section {
+    padding: 80px 0 40px 0;
+    background: linear-gradient(180deg, #fff 80%, #f7fafd 100%);
+}
+.studio-desc {
+    max-width: 600px;
+    font-size: 1.15rem;
+    color: #555;
+    line-height: 2;
+}
+.game-section {
+    padding: 60px 0 40px 0;
+    background: linear-gradient(135deg, #18151f 0%, #2a1a2e 100%) !important;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
     box-sizing: border-box;
 }
-
-.logo {
-    max-width: 80%;
-    height: auto;
-    margin-bottom: 20px;
-    display: block; 
+.game-banner-wrap {
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 6px 32px 0 #a00a2a44, 0 0 0 8px #000a;
+    background: #1a101a;
+    position: relative;
 }
-
-.slogan {
-    font-size: 20px; 
-    color: #444; 
-    margin-top: 15px;
-    font-weight: bold; 
-    line-height: 1.5; 
+.game-banner {
+    filter: brightness(0.7) contrast(1.1) drop-shadow(0 0 24px #a00a2a88);
+    transition: filter 0.5s, transform 0.5s cubic-bezier(.19,1,.22,1);
 }
-
-.description {
-    font-size: 16px; 
-    color: #666; 
-    margin-top: 15px;
-    line-height: 1.7;
-    text-align: left; 
-    text-indent: 2em; 
-    max-width: 100%; 
-    box-sizing: border-box;
+.game-banner-wrap:hover .game-banner {
+    filter: brightness(1) contrast(1.2) drop-shadow(0 0 32px #ff003388);
+    transform: scale(1.04) rotate(-1deg);
 }
-
-.coming-soon-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url('icon.jpg');
-    background-size: cover;
-    background-position: center;
-    padding: 20px;
-    box-sizing: border-box;
-    color: #fff; 
-}
-
-.coming-soon {
-    font-size: 24px;
-    color: #333;
-    font-weight: bold;
-}
-
-/* 中等以上屏幕才横向排列，PC端保持与原先一致 */
-@media (min-width: 600px) {
-    .wrapper {
-        flex-direction: row; /* PC端横向排列不变 */
-        padding: 40px; 
-    }
-
-    .container {
-        flex: 1; 
-        max-width: 45%; 
-        margin: 10px; 
-    }
-}
-
-@media (min-width: 1024px) {
-    .container {
-        max-width: 500px; 
-    }
-}
-
-.steam-button {
-    display: inline-block;
-    text-decoration: none;
-    padding: 10px 15px;
-    margin-top: 20px;
-    background-color: #1b2838;  
-    color: #fff;
-    border-radius: 3px;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    transition: background-color 0.3s;
-}
-
-.steam-button:hover {
-    background-color: #2a475e;  
-}
-
 .game-title {
-    font-size: 1.5em;
-    margin-bottom: 10px;
+    font-family: 'Creepster', cursive;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #ff0033;
+    letter-spacing: 2px;
+    text-shadow: 0 0 12px #a00a2a, 0 2px 8px #000;
+}
+.game-desc {
+    font-size: 1.1rem;
+    color: #f8dada;
+    line-height: 2;
+    text-shadow: 0 1px 8px #000, 0 0 2px #a00a2a55;
+}
+.btn-steam {
+    background: linear-gradient(90deg, #a00a2a 0%, #2a1a2e 100%);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    padding: 12px 32px;
+    box-shadow: 0 2px 12px #a00a2a55, 0 0 8px #000a;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+.btn-steam:hover {
+    background: linear-gradient(90deg, #ff0033 0%, #2a1a2e 100%);
+    color: #fff;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 4px 24px #ff003388, 0 0 16px #a00a2a88;
+}
+.footer {
+    background: #f7fafd;
+    color: #888;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    border-top: 1px solid #eee;
+}
+@media (max-width: 991.98px) {
+    .studio-section { padding: 60px 0 30px 0; }
+    .game-section { padding: 40px 0 20px 0; }
+    .studio-title-main { font-size: 2rem; }
+    .game-section .game-title { font-size: 1.3rem; }
+    .logo-fixed { width: 40px; height: 40px; }
+}
+@media (max-width: 575.98px) {
+    .studio-section { padding: 40px 0 20px 0; }
+    .game-section { padding: 20px 0 10px 0; }
+    .studio-title-main { font-size: 1.3rem; }
+    .game-section .game-title { font-size: 1rem; }
+    .logo-fixed { width: 28px; height: 28px; }
+    .studio-desc { font-size: 1rem; }
+    .game-section .game-desc { font-size: 0.98rem; }
+    .game-section .btn-steam { font-size: 1rem; padding: 10px 18px; }
 }

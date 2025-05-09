@@ -69,7 +69,7 @@ body::before {
 }
 .game-section {
     padding: 60px 0 40px 0;
-    background: linear-gradient(135deg, #18151f 0%, #2a1a2e 100%) !important;
+    background: #000 !important;
     width: 100vw;
     margin-left: calc(50% - 50vw);
     box-sizing: border-box;
@@ -89,38 +89,38 @@ body::before {
     filter: brightness(1) contrast(1.2) drop-shadow(0 0 32px #ff003388);
     transform: scale(1.04) rotate(-1deg);
 }
-.game-title {
+.game-section .game-title {
     font-family: 'Creepster', cursive;
     font-size: 2.2rem;
     font-weight: 700;
-    color: #ff0033;
+    color: #fff;
     letter-spacing: 2px;
-    text-shadow: 0 0 12px #a00a2a, 0 2px 8px #000;
+    text-shadow: 0 0 12px #fff, 0 2px 8px #000;
 }
-.game-desc {
+.game-section .game-desc {
     font-size: 1.1rem;
-    color: #f8dada;
+    color: #fff;
     line-height: 2;
-    text-shadow: 0 1px 8px #000, 0 0 2px #a00a2a55;
+    text-shadow: 0 1px 8px #000, 0 0 2px #fff8;
 }
-.btn-steam {
-    background: linear-gradient(90deg, #a00a2a 0%, #2a1a2e 100%);
+.game-section .btn-steam {
+    background: linear-gradient(90deg, #171a21 0%, #2a475e 100%);
     color: #fff;
     font-weight: 700;
     font-size: 1.1rem;
     border-radius: 6px;
     padding: 12px 32px;
-    box-shadow: 0 2px 12px #a00a2a55, 0 0 8px #000a;
+    box-shadow: 0 2px 12px #2228, 0 0 8px #000a;
     transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
     border: none;
     position: relative;
     overflow: hidden;
 }
-.btn-steam:hover {
-    background: linear-gradient(90deg, #ff0033 0%, #2a1a2e 100%);
+.game-section .btn-steam:hover {
+    background: linear-gradient(90deg, #2a475e 0%, #171a21 100%);
     color: #fff;
     transform: translateY(-2px) scale(1.03);
-    box-shadow: 0 4px 24px #ff003388, 0 0 16px #a00a2a88;
+    box-shadow: 0 4px 24px #2a475e88, 0 0 16px #171a2188;
 }
 .footer {
     background: #f7fafd;

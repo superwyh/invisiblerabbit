@@ -100,15 +100,15 @@ body {
 .game-title {
     font-size: 2.5rem;
     color: #333;
-    margin-bottom: 8px;
+    margin-bottom: 25px;
     font-weight: normal;
 }
 
-.game-subtitle {
-    font-size: 1.3rem;
+.game-title-en {
+    font-size: 1.5rem;
     color: #666;
     font-style: italic;
-    margin-bottom: 25px;
+    margin-left: 15px;
 }
 
 .game-description {
@@ -137,8 +137,45 @@ body {
     text-decoration: none;
 }
 
-.steam-button i {
-    font-size: 1.1rem;
+.awards-section {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #333;
+}
+
+.award-header {
+    font-size: 1rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.award-item {
+    margin-bottom: 10px;
+}
+
+.award-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.award {
+    background: #e9ecef;
+    color: #495057;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.award-gold {
+    background: #f8f9fa;
+    color: #b8860b;
+    border: 1px solid #b8860b;
+    font-weight: bold;
 }
 
 
@@ -201,9 +238,10 @@ body {
     .game-title {
         font-size: 2.2rem;
     }
-
-    .game-subtitle {
-        font-size: 1.2rem;
+    
+    .game-title-en {
+        font-size: 1.3rem;
+        margin-left: 10px;
     }
 
     .game-description {
@@ -238,9 +276,19 @@ body {
     .game-title {
         font-size: 1.8rem;
     }
-
-    .game-subtitle {
+    
+    .game-title-en {
         font-size: 1.1rem;
+        margin-left: 8px;
+    }
+    
+    .awards-section {
+        padding: 15px;
+    }
+    
+    .award-list {
+        flex-direction: column;
+        gap: 6px;
     }
 
     .game-description {

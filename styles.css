@@ -1,3 +1,12 @@
+/* 字体定义 */
+@font-face {
+    font-family: 'YShiMinchoCL';
+    src: url('./YShiMinchoCL-Regular-subset.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* 基础样式重置 */
 * {
     margin: 0;
@@ -7,11 +16,16 @@
 
 /* 基础样式 */
 body {
-    font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    font-family: 'YShiMinchoCL', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif !important;
     background: #ffffff;
     color: #333;
     line-height: 1.6;
     min-height: 100vh;
+}
+
+/* 强制所有文本元素使用字体 */
+h1, h2, h3, h4, h5, h6, p, span, div, a {
+    font-family: 'YShiMinchoCL', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif !important;
 }
 
 /* 容器 */

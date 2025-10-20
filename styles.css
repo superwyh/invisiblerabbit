@@ -81,11 +81,15 @@ h1, h2, h3, h4, h5, h6, p, span, div, a {
     margin-bottom: 20px;
 }
 
-.founded-info {
-    font-size: 0.9rem;
-    color: #888;
-    margin-top: 30px;
-    font-style: italic;
+.about-link {
+    color: #999;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.about-link:hover {
+    color: #666;
+    text-decoration: none;
 }
 
 /* 右侧游戏介绍 */
@@ -244,11 +248,13 @@ h1, h2, h3, h4, h5, h6, p, span, div, a {
 }
 
 .award {
-    background: #e9ecef;
-    color: #495057;
+    background: #f8f9fa;
+    color: #b8860b;
     padding: 4px 8px;
     border-radius: 4px;
     font-size: 0.85rem;
+    border: 1px solid #b8860b;
+    font-weight: bold;
 }
 
 .award-gold {

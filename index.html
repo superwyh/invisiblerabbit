@@ -35,7 +35,7 @@
             <div class="modal-overlay" v-if="showModal" @click="closeModal">
                 <div class="modal-content" @click.stop>
                     <p class="modal-message">{{ modalMessage }}</p>
-                    <button class="modal-close" @click="closeModal">我知道了</button>
+                    <button class="modal-close" @click="closeModal">{{ modalButton || '我知道了' }}</button>
                 </div>
             </div>
 
@@ -85,7 +85,7 @@
                             <div class="detail-actions" v-if="selectedResult.steamUrl">
                                 <a :href="selectedResult.steamUrl" class="steam-button" target="_blank">
                                     <i class="fab fa-steam"></i>
-                                    在 Steam 上获取
+                                    {{ selectedResult.steamButton || '在 Steam 上获取' }}
                                 </a>
                             </div>
                         </div>

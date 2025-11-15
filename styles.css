@@ -1,7 +1,18 @@
+.right-section {
+    position: relative;
+}
+
+.games-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-height: 480px;
+}
 /* 字体定义 */
 @font-face {
-    font-family: 'YShiMinchoCL';
-    src: url('./YShiMinchoCL-Regular-subset.woff2') format('woff2');
+    font-family: 'ChillBitmap';
+    src: url('./ChillBitmap_7px.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -14,10 +25,20 @@
     box-sizing: border-box;
 }
 
+/* 字号变量 */
+:root {
+    --font-body: 0.9rem;
+    --font-title: 1.1rem;
+}
+
 /* 基础样式 */
-body {
-    font-family: 'YShiMinchoCL', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif !important;
+html, body {
     background: #ffffff;
+}
+
+body {
+    font-family: 'Microsoft YaHei', '微软雅黑', 'ChillBitmap', Arial, sans-serif !important;
+    font-size: var(--font-body);
     color: #333;
     line-height: 1.6;
     min-height: 100vh;
@@ -25,7 +46,7 @@ body {
 
 /* 强制所有文本元素使用字体 */
 h1, h2, h3, h4, h5, h6, p, span, div, a {
-    font-family: 'YShiMinchoCL', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif !important;
+    font-family: 'Zpix', 'YShiMinchoCL', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif !important;
 }
 
 /* 容器 */
@@ -33,6 +54,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a {
     max-width: 1400px;
     margin: 0 auto;
     padding: 40px 20px;
+    background: #ffffff;
 }
 
 
@@ -68,14 +90,14 @@ h1, h2, h3, h4, h5, h6, p, span, div, a {
 }
 
 .about-title {
-    font-size: 1.8rem;
+    font-size: var(--font-title);
     color: #333;
     margin-bottom: 25px;
     font-weight: normal;
 }
 
 .about-text {
-    font-size: 1rem;
+    font-size: var(--font-body);
     line-height: 1.8;
     color: #555;
     margin-bottom: 20px;
@@ -92,114 +114,105 @@ h1, h2, h3, h4, h5, h6, p, span, div, a {
     text-decoration: none;
 }
 
-/* 右侧游戏介绍 */
+/* 右侧游戏清单 */
 .right-section {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.game-info {
-    max-width: 500px;
+[v-cloak] {
+    display: none;
 }
 
-.game-banner-container {
-    position: relative;
+.fab {
+    font-family: 'Font Awesome 5 Brands' !important;
+    font-weight: 400 !important;
+}
+
+.games-list {
     width: 100%;
-    height: 240px;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 30px;
-}
-
-.game-banner {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.game-title-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
+    gap: 24px;
 }
 
-.game-title-overlay .game-title {
-    color: #fff;
-    text-align: center;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    margin: 0;
-}
-
-.game-details {
-    text-align: left;
-}
-
-.game-title {
-    font-size: 2.5rem;
-    color: #333;
-    margin-bottom: 25px;
-    font-weight: normal;
-}
-
-.game-title-en {
-    font-size: 1.5rem;
-    color: #666;
-    font-style: italic;
-    margin-left: 15px;
-}
-
-/* 在overlay中的标题样式 */
-.game-title-overlay .game-title {
-    font-size: 2.8rem;
-    color: #fff;
-    text-align: center;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    margin: 0 0 20px 0;
-}
-
-.steam-button-overlay {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(23, 26, 33, 0.9);
-    color: #fff;
-    padding: 12px 24px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+.game-card {
+    background: #fff;
     border: none;
+    border-radius: 16px;
+    padding: 20px;
+    transition: transform 0.3s ease;
 }
 
-.steam-button-overlay:hover {
-    background: rgba(42, 71, 94, 0.9);
-    color: #fff;
-    text-decoration: none;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+.game-card.active {
+    transform: translateY(-3px);
 }
 
-.steam-button-overlay i {
-    font-size: 1.1rem;
+.game-card-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.game-card-preview img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.game-card-info h3 {
+    font-size: var(--font-title);
+    color: #111;
+    margin-bottom: 4px;
+}
+
+.game-card-subtitle {
+    font-size: var(--font-body);
+    color: #777;
+}
+
+.game-card-detail {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.detail-actions {
+    margin-top: 8px;
 }
 
 .game-description {
-    font-size: 1rem;
+    font-size: var(--font-body);
     line-height: 1.8;
     color: #555;
     margin-bottom: 30px;
+}
+
+.game-description h3 {
+    font-size: var(--font-title);
+    color: #111;
+    margin: 20px 0 12px;
+}
+
+.game-description p {
+    margin-bottom: 16px;
+}
+
+.game-description ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+.game-description ul li {
+    margin-bottom: 10px;
+    padding-left: 0;
 }
 
 .steam-button {
@@ -211,7 +224,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a {
     padding: 12px 24px;
     border-radius: 4px;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: var(--font-title);
     transition: background 0.3s ease;
 }
 
@@ -222,16 +235,37 @@ h1, h2, h3, h4, h5, h6, p, span, div, a {
 }
 
 .awards-section {
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     padding: 20px;
     background: #f8f9fa;
-    border-radius: 8px;
+    border-radius: 12px;
     border-left: 4px solid #333;
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.award-text {
+    flex: 1;
+}
+
+.award-media {
+    width: 180px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.award-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .award-header {
-    font-size: 1rem;
+    font-size: var(--font-title);
     color: #333;
     font-weight: bold;
     margin-bottom: 15px;
@@ -252,7 +286,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a {
     color: #b8860b;
     padding: 4px 8px;
     border-radius: 4px;
-    font-size: 0.85rem;
+    font-size: var(--font-body);
     border: 1px solid #b8860b;
     font-weight: bold;
 }
@@ -271,7 +305,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a {
     text-align: center;
     padding: 30px 0;
     color: #888;
-    font-size: 0.9rem;
+    font-size: var(--font-body);
     border-top: 1px solid #eee;
     margin-top: 40px;
 }
@@ -292,8 +326,8 @@ h1, h2, h3, h4, h5, h6, p, span, div, a {
         text-align: center;
     }
 
-    .game-details {
-        text-align: center;
+    .games-list {
+        gap: 24px;
     }
 }
 
@@ -313,38 +347,25 @@ h1, h2, h3, h4, h5, h6, p, span, div, a {
 
 
 
-    .about-title {
-        font-size: 1.6rem;
+    .games-list {
+        gap: 20px;
     }
 
-    .about-text {
-        font-size: 0.95rem;
+    .game-card-preview img {
+        height: 180px;
     }
 
-    .game-title {
-        font-size: 2.2rem;
-    }
-    
-    .game-title-en {
-        font-size: 1.3rem;
-        margin-left: 10px;
+    .game-card-detail {
+        gap: 16px;
     }
 
-    .game-description {
-        font-size: 0.95rem;
+    .awards-section {
+        flex-direction: column;
     }
 
-    .game-banner-container {
-        height: 210px;
-    }
-    
-    .game-title-overlay .game-title {
-        font-size: 2.4rem;
-    }
-    
-    .steam-button-overlay {
-        padding: 10px 20px;
-        font-size: 0.95rem;
+    .award-media {
+        width: 100%;
+        max-height: 220px;
     }
 }
 
@@ -360,23 +381,6 @@ h1, h2, h3, h4, h5, h6, p, span, div, a {
 
 
 
-    .about-title {
-        font-size: 1.4rem;
-    }
-
-    .about-text {
-        font-size: 0.9rem;
-    }
-
-    .game-title {
-        font-size: 1.8rem;
-    }
-    
-    .game-title-en {
-        font-size: 1.1rem;
-        margin-left: 8px;
-    }
-    
     .awards-section {
         padding: 15px;
     }
@@ -386,25 +390,30 @@ h1, h2, h3, h4, h5, h6, p, span, div, a {
         gap: 6px;
     }
 
-    .game-description {
-        font-size: 0.9rem;
-    }
-
-    .game-banner-container {
-        height: 180px;
-    }
-    
-    .game-title-overlay .game-title {
-        font-size: 2.0rem;
-    }
-    
-    .steam-button-overlay {
-        padding: 8px 16px;
-        font-size: 0.9rem;
-    }
-
     .steam-button {
         padding: 10px 20px;
-        font-size: 0.95rem;
+    }
+
+    .games-list {
+        gap: 16px;
+    }
+
+    .game-card-preview img {
+        height: 150px;
+    }
+
+    .game-card-detail {
+        gap: 14px;
+    }
+
+    .awards-section {
+        flex-direction: column;
+    }
+
+    .award-media {
+        width: 100%;
+        max-height: 200px;
     }
 }
+
+

@@ -109,6 +109,54 @@ i.fab, i.fas, i.far, i.fa, i[class*="fa-"] {
     color: #999;
 }
 
+/* Modal弹窗 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.modal-message {
+    font-size: var(--font-body);
+    color: #333;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.modal-close {
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 4px;
+    font-size: var(--font-body);
+    font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.modal-close:hover {
+    background: #555;
+}
+
 /* 详情展示 */
 .detail-view {
     margin-top: 40px;

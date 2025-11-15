@@ -11,47 +11,60 @@
 </head>
 
 <body>
-    <div class="container">
-        <!-- 主要内容区域 - 左右布局 -->
-        <main class="main-layout">
-            <!-- 左侧：工作室介绍 -->
-            <section class="left-section">
-                <div class="studio-info">
-                    <img src="images/logo.png" alt="Invisible Rabbit Logo" class="logo">
+    <div class="container" id="app">
+        <div class="search-interface" v-cloak>
+            <!-- Logo -->
+            <div class="logo-container">
+                <img src="images/logo.png" alt="Invisible Rabbit Logo" class="logo">
+            </div>
 
-                    <div class="about-content">
-                        <p class="about-text">
-                            由 <a href="https://www.superwyh.com/" target="_blank" class="about-link">Superwyh</a> 创建，致力于打造与众不同的游戏体验，专注于探索那些大公司往往不愿涉足的游戏类型和创意核心玩法。
-                        </p>
+            <!-- 搜索框 -->
+            <div class="search-box-container">
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    v-model="searchQuery"
+                    @input="handleSearch"
+                    @keydown.enter="selectFirstResult"
+                    autocomplete="off"
+                    autofocus
+                >
+            </div>
+
+
+            <!-- 详情展示 -->
+            <div class="detail-view" v-if="selectedResult">
+                <div class="detail-content">
+                    <!-- 工作室介绍 -->
+                    <div v-if="selectedResult.id === 'studio'">
+                        <div class="detail-header">
+                            <h1 class="detail-title">{{ selectedResult.name }}</h1>
+                        </div>
+                        <div class="detail-body">
+                            <p class="about-text">
+                                由 <span class="highlight">Superwyh</span> 创建，致力于打造与众不同的游戏体验，专注于探索那些大公司往往不愿涉足的游戏类型和创意核心玩法。已上 Steam 的游戏有 <span class="highlight">看不见的房间</span>，开发中的游戏有 <span class="highlight">久等了</span>。
+                            </p>
+                        </div>
                     </div>
-                </div>
-            </section>
 
-            <!-- 右侧：游戏清单 -->
-            <section class="right-section" id="gameApp">
-                <div class="games-list" v-cloak>
-                    <article 
-                        class="game-card" 
-                        v-for="(game, index) in games" 
-                        :key="game.id"
-                        :class="{ active: index === activeIndex }"
-                        @click.stop
-                    >
-                        <div class="game-card-preview" @click="toggleGame(index)">
-                            <img :src="game.banner" :alt="game.name">
-                            <div class="game-card-info">
-                                <h3>{{ game.name }}</h3>
-                                <p class="game-card-subtitle" v-if="game.enName">{{ game.enName }}</p>
-                            </div>
+                    <!-- 游戏介绍 -->
+                    <div v-if="selectedResult.id === 'invisible-room'">
+                        <div class="detail-header">
+                            <h1 class="detail-title">{{ selectedResult.name }}</h1>
+                            <p class="detail-subtitle" v-if="selectedResult.enName">{{ selectedResult.enName }}</p>
+                        </div>
+                        
+                        <div class="game-banner-container">
+                            <img :src="selectedResult.banner" :alt="selectedResult.name" class="game-banner">
                         </div>
 
-                        <div class="game-card-detail" v-if="index === activeIndex">
-                            <div class="game-description" v-html="game.description"></div>
+                        <div class="detail-body">
+                            <div class="game-description" v-html="selectedResult.description"></div>
 
                             <div 
                                 class="awards-section" 
-                                v-for="(awardGroup, idx) in game.awards" 
-                                :key="`award-${game.id}-${idx}`"
+                                v-for="(awardGroup, idx) in selectedResult.awards" 
+                                :key="`award-${selectedResult.id}-${idx}`"
                             >
                                 <div class="award-text">
                                     <div class="award-item">
@@ -71,77 +84,125 @@
                             </div>
 
                             <div class="detail-actions">
-                                <a :href="game.steamUrl" class="steam-button" target="_blank">
+                                <a :href="selectedResult.steamUrl" class="steam-button" target="_blank">
                                     <i class="fab fa-steam"></i>
                                     在 Steam 上获取
                                 </a>
                             </div>
                         </div>
-                    </article>
-                </div>
-            </section>
-        </main>
+                    </div>
 
-        <!-- 页脚 -->
-        <footer class="footer">
-            <p>&copy; 2025 Invisible Rabbit. All Rights Reserved.</p>
-        </footer>
+                    <!-- 久等了 -->
+                    <div v-if="selectedResult.id === 'waiting'">
+                        <div class="detail-header">
+                            <h1 class="detail-title">{{ selectedResult.name }}</h1>
+                        </div>
+                        <div class="detail-body">
+                            <p class="about-text">正在施工中。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.38/dist/vue.global.prod.js"></script>
+    <script>
+    const { createApp } = Vue;
+
+    createApp({
+        data() {
+            return {
+                searchQuery: '',
+                selectedResult: null,
+                results: [
+                    {
+                        id: 'studio',
+                        name: 'Invisible Rabbit',
+                        type: '工作室',
+                        keywords: ['invisible rabbit', 'invisible', 'rabbit', '工作室', '工作室介绍', '关于我们']
+                    },
+                    {
+                        id: 'superwyh',
+                        name: 'Superwyh',
+                        type: '外部链接',
+                        externalUrl: 'https://www.superwyh.com/',
+                        keywords: ['superwyh']
+                    },
+                    {
+                        id: 'invisible-room',
+                        name: '看不见的房间',
+                        type: '游戏',
+                        enName: 'Invisible Room',
+                        banner: 'images/banner.jpg',
+                        description: `
+                            <h3>🕳️ 游戏简介</h3>
+                            <p>看不见的房间是一款纯粹的音频解谜游戏，玩家需要完全依靠声音来探索、推理，并揭开隐藏的真相。与传统依赖视觉的游戏不同，本作彻底剥离了画面元素，挑战你的听觉感知与逻辑思维，让你在一个"看不见"的世界中寻找前进的方向。</p>
+                            <p>你将通过环境音、角色对话以及各种细微的声音线索，在脑海中一步步构筑出这间不可见的房间，并借此解开背后的谜团。除此之外，游戏还融合了独特的实体解谜元素——你需要打印并使用游戏内附带的 PDF 文件，这些线索材料将成为你破解谜题不可或缺的工具，带来独一无二的沉浸式体验。</p>
+
+                            <h3>📖 剧情介绍</h3>
+                            <p>你是"怪谈办"组织中的一名成员。某天，一位外出执行任务的探员在一场突发事件中双目失明，被困在一处神秘的建筑内。通讯设备是你们之间唯一的纽带，而你必须通过她传来的零碎声音与对话，引导她在完全黑暗的环境中生存与脱困。</p>
+                            <p>随着调查的深入，你将逐渐发现这间"房间"绝非普通之地……</p>
+                        `,
+                        awards: [
+                            {
+                                organizer: '「机核网」BOOOM暴造',
+                                event: '「摊开玩」独立游戏市集（BOOOM IndieFair）',
+                                items: ['🏆 恁牛全场奖', '最不想让它咕咕奖', '拍手叫好玩法奖']
+                            }
+                        ],
+                        steamUrl: 'https://store.steampowered.com/app/3533210/',
+                        keywords: ['看不见的房间', 'invisible room']
+                    },
+                    {
+                        id: 'waiting',
+                        name: '久等了',
+                        type: '游戏',
+                        keywords: ['久等了']
+                    }
+                ]
+            };
+        },
+        methods: {
+            handleSearch() {
+                // 输入时不显示结果，只清空已选择的结果
+                this.selectedResult = null;
+            },
+            selectFirstResult() {
+                const query = this.searchQuery.trim();
+                if (!query) {
+                    this.selectedResult = null;
+                    return;
+                }
+                
+                // 精确匹配：搜索词必须完全匹配某个关键词
+                const queryLower = query.toLowerCase();
+                const matchedResult = this.results.find(result => {
+                    return result.keywords.some(keyword => 
+                        keyword.toLowerCase() === queryLower
+                    );
+                });
+                
+                if (matchedResult) {
+                    // 如果是Superwyh，打开外部链接
+                    if (matchedResult.externalUrl) {
+                        window.open(matchedResult.externalUrl, '_blank');
+                        this.searchQuery = '';
+                        this.selectedResult = null;
+                    } else {
+                        this.selectResult(matchedResult);
+                    }
+                } else {
+                    this.selectedResult = null;
+                }
+            },
+            selectResult(result) {
+                this.selectedResult = result;
+                this.searchQuery = '';
+            }
+        }
+    }).mount('#app');
+    </script>
 </body>
 
-<script src="https://cdn.jsdelivr.net/npm/vue@3.4.38/dist/vue.global.prod.js"></script>
-<script>
-const { createApp } = Vue;
-
-createApp({
-    data() {
-        return {
-            games: [
-                {
-                    id: 'invisible-room',
-                    name: '看不见的房间',
-                    enName: 'Invisible Room',
-                    banner: 'images/banner.jpg',
-                    description: `
-                        <h3>🕳️ 游戏简介</h3>
-                        <p>看不见的房间是一款纯粹的音频解谜游戏，玩家需要完全依靠声音来探索、推理，并揭开隐藏的真相。与传统依赖视觉的游戏不同，本作彻底剥离了画面元素，挑战你的听觉感知与逻辑思维，让你在一个“看不见”的世界中寻找前进的方向。</p>
-                        <p>你将通过环境音、角色对话以及各种细微的声音线索，在脑海中一步步构筑出这间不可见的房间，并借此解开背后的谜团。除此之外，游戏还融合了独特的实体解谜元素——你需要打印并使用游戏内附带的 PDF 文件，这些线索材料将成为你破解谜题不可或缺的工具，带来独一无二的沉浸式体验。</p>
-
-                        <h3>📖 剧情介绍</h3>
-                        <p>你是“怪谈办”组织中的一名成员。某天，一位外出执行任务的探员在一场突发事件中双目失明，被困在一处神秘的建筑内。通讯设备是你们之间唯一的纽带，而你必须通过她传来的零碎声音与对话，引导她在完全黑暗的环境中生存与脱困。</p>
-                        <p>随着调查的深入，你将逐渐发现这间“房间”绝非普通之地……</p>
-                    `,
-                    awards: [
-                        {
-                            organizer: '「机核网」BOOOM暴造',
-                            event: '「摊开玩」独立游戏市集（BOOOM IndieFair）',
-                            items: ['🏆 恁牛全场奖', '最不想让它咕咕奖', '拍手叫好玩法奖']
-                        }
-                    ],
-                    steamUrl: 'https://store.steampowered.com/app/3533210/'
-                }
-            ],
-            activeIndex: null
-        };
-    },
-    mounted() {
-        this.handleOutsideClick = () => {
-            this.collapse();
-        };
-        document.addEventListener('click', this.handleOutsideClick);
-    },
-    beforeUnmount() {
-        document.removeEventListener('click', this.handleOutsideClick);
-    },
-    methods: {
-        toggleGame(index) {
-            this.activeIndex = this.activeIndex === index ? null : index;
-        },
-        collapse() {
-            this.activeIndex = null;
-        }
-    }
-}).mount('#gameApp');
-</script>
-</html>
 </html>

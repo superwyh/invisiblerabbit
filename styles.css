@@ -205,26 +205,97 @@ main {
     align-items: center;
 }
 
-/* Waiting Section - Full Page Background */
+/* Waiting Section - Blue Sky Background */
 #waiting-section {
-    background: linear-gradient(135deg, rgba(79, 209, 197, 0.15) 0%, rgba(159, 122, 234, 0.15) 100%);
+    background: linear-gradient(180deg,
+            #7cc8ee 0%,
+            #a8d8f0 40%,
+            #d4ebf7 70%,
+            #f0f8ff 100%);
     position: relative;
+    overflow: hidden;
 }
 
+/* Cloud Layer 1 - Slow moving clouds */
 #waiting-section::before {
     content: '';
     position: absolute;
     top: 0;
-    right: 0;
-    width: 60%;
+    left: 0;
+    width: 200%;
     height: 100%;
-    background: radial-gradient(circle at top right, rgba(79, 209, 197, 0.2) 0%, transparent 70%);
+    background:
+        radial-gradient(ellipse 250px 120px at 15% 25%, rgba(255, 255, 255, 0.7) 0%, transparent 50%),
+        radial-gradient(ellipse 350px 170px at 45% 35%, rgba(255, 255, 255, 0.6) 0%, transparent 50%),
+        radial-gradient(ellipse 200px 100px at 75% 45%, rgba(255, 255, 255, 0.65) 0%, transparent 50%),
+        radial-gradient(ellipse 280px 140px at 25% 65%, rgba(255, 255, 255, 0.6) 0%, transparent 50%),
+        radial-gradient(ellipse 300px 150px at 85% 75%, rgba(255, 255, 255, 0.55) 0%, transparent 50%);
     z-index: 0;
+    pointer-events: none;
+    animation: cloudDrift1 120s linear infinite;
+}
+
+/* Cloud Layer 2 - Medium speed clouds */
+#waiting-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background:
+        radial-gradient(ellipse 180px 90px at 30% 20%, rgba(255, 255, 255, 0.5) 0%, transparent 50%),
+        radial-gradient(ellipse 220px 110px at 60% 50%, rgba(255, 255, 255, 0.45) 0%, transparent 50%),
+        radial-gradient(ellipse 260px 130px at 90% 70%, rgba(255, 255, 255, 0.5) 0%, transparent 50%);
+    z-index: 1;
+    pointer-events: none;
+    animation: cloudDrift2 80s linear infinite;
+}
+
+@keyframes cloudDrift1 {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes cloudDrift2 {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 #waiting-section>* {
     position: relative;
-    z-index: 1;
+    z-index: 10;
+}
+
+#waiting-section .project-title,
+#waiting-section .project-desc,
+#waiting-section .tag {
+    color: #2d3748;
+}
+
+#waiting-section .project-link {
+    color: #2d3748;
+}
+
+/* Particles Container */
+#sky-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
 }
 
 .project-info {
@@ -306,7 +377,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px;
+    z-index: 10;
 }
 
 .main-collage-img {
@@ -314,53 +385,82 @@ main {
     height: auto;
     max-height: 70vh;
     object-fit: contain;
-    z-index: 2;
-    box-shadow: 0 30px 80px rgba(79, 209, 197, 0.3);
+    z-index: 5;
+    box-shadow: 0 30px 80px rgba(124, 200, 238, 0.4);
     border-radius: 12px;
-    border: 3px solid rgba(255, 255, 255, 0.2);
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    position: relative;
 }
 
+/* Characters */
 .char-img {
     position: absolute;
     width: 280px;
     height: auto;
-    z-index: 3;
-    filter: drop-shadow(0 15px 30px rgba(79, 209, 197, 0.4));
+    z-index: 6;
+    filter: drop-shadow(0 15px 30px rgba(124, 200, 238, 0.5));
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .char-img:hover {
     transform: scale(1.15) translateY(-10px);
-    z-index: 10;
-    filter: drop-shadow(0 20px 40px rgba(79, 209, 197, 0.6));
+    z-index: 20;
+    filter: drop-shadow(0 20px 40px rgba(124, 200, 238, 0.7));
 }
 
 .char-1 {
-    top: 5%;
-    left: 5%;
+    top: 8%;
+    left: 2%;
     transform: rotate(-8deg);
 }
 
 .char-2 {
-    bottom: 5%;
-    right: 5%;
-    transform: rotate(8deg);
+    top: 5%;
+    right: 2%;
+    transform: rotate(5deg);
 }
 
 .char-3 {
-    top: 50%;
-    left: -3%;
-    transform: translateY(-50%) rotate(-12deg);
+    bottom: 8%;
+    left: 35%;
+    transform: rotate(-3deg);
 }
 
-/* Awards */
-.awards-header {
-    font-size: 0.85rem;
-    opacity: 0.6;
-    margin-bottom: 4px;
-    font-weight: 400;
+/* Decorative Items */
+.deco-img {
+    position: absolute;
+    z-index: 6;
+    filter: drop-shadow(0 10px 20px rgba(124, 200, 238, 0.3));
+    transition: transform 0.3s ease;
+    width: 100px;
+    height: auto;
 }
 
+.deco-img:hover {
+    transform: scale(1.1) rotate(5deg);
+    z-index: 20;
+}
+
+.deco-1 {
+    bottom: 25%;
+    left: 10%;
+    transform: rotate(-15deg);
+}
+
+.deco-2 {
+    top: 40%;
+    right: 15%;
+    transform: rotate(10deg);
+}
+
+.deco-3 {
+    bottom: 10%;
+    right: 5%;
+    width: 150px;
+    transform: rotate(-5deg);
+}
+
+/* Awards List */
 .awards-list {
     display: flex;
     flex-direction: row;
@@ -430,15 +530,9 @@ body.theme-light footer.snap-page {
         width: 90%;
     }
 
-    .char-img {
-        position: relative;
-        width: 150px;
-        top: auto;
-        left: auto;
-        right: auto;
-        bottom: auto;
-        margin: 10px;
-        display: inline-block;
+    .char-img,
+    .deco-img {
+        display: none;
     }
 
     .awards-list {

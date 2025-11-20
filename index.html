@@ -3,96 +3,101 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Invisible Rabbit - 游戏工作室</title>
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invisible Rabbit | 看不见的兔子</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="container" id="app">
-        <div class="search-interface" v-cloak>
-            <!-- Logo -->
-            <div class="logo-container">
-                <img src="images/logo.png" alt="Invisible Rabbit Logo" class="logo">
-            </div>
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
 
-            <!-- 搜索框 -->
-            <div class="search-box-container">
-                <input 
-                    type="text" 
-                    class="search-input" 
-                    v-model="searchQuery"
-                    @input="handleSearch"
-                    @keydown.enter="selectFirstResult"
-                    autocomplete="off"
-                    autofocus
-                >
-            </div>
+    <!-- Spotlight Overlay -->
+    <div class="spotlight-overlay"></div>
 
-            <!-- Modal弹窗 -->
-            <div class="modal-overlay" v-if="showModal" @click="closeModal">
-                <div class="modal-content" @click.stop>
-                    <p class="modal-message">{{ modalMessage }}</p>
-                    <button class="modal-close" @click="closeModal">{{ modalButton || '我知道了' }}</button>
+    <div id="app">
+        <main>
+            <!-- Hero Section -->
+            <section class="snap-page hero">
+                <h1 class="hero-title">
+                    INVISIBLE<br>RABBIT
+                </h1>
+                <p class="hero-subtitle">
+                    我们致力于探索看不见的游戏体验。
+                    在大多数人追逐光鲜画面的时代，我们潜入阴影，
+                    专注于挖掘那些被忽视的创意核心与独特玩法。
+                </p>
+            </section>
+
+            <!-- Invisible Room Section -->
+            <section class="snap-page project-page fade-in-scroll" id="room-section">
+                <div class="project-info">
+                    <h2 class="project-title">看不见的房间</h2>
+                    <div class="project-tags">
+                        <span class="tag">音频解谜</span>
+                        <span class="tag">悬疑</span>
+                        <span class="tag">已发布</span>
+                    </div>
+                    <p class="project-desc">
+                        《看不见的房间》是一款纯粹的音频解谜游戏，玩家需要完全依靠声音来探索、推理，并揭开隐藏的真相。
+                        与传统依赖视觉的游戏不同，本作彻底剥离了画面元素，挑战你的听觉感知与逻辑思维，让你在一个"看不见"的世界中寻找前进的方向。
+                        你将通过环境音、角色对话以及各种细微的声音线索，在脑海中一步步构筑出这间不可见的房间，并借此解开背后的谜团。
+                    </p>
+
+                    <!-- Awards -->
+                    <div class="awards-header">「机核网」BOOOM暴造 - 「摊开玩」独立游戏市集（BOOOM IndieFair）</div>
+                    <div class="awards-list">
+                        <div class="award-item"><i class="fa-solid fa-trophy"></i> 恁牛全场奖</div>
+                        <div class="award-item"><i class="fa-solid fa-trophy"></i> 最不想让它咕咕奖</div>
+                        <div class="award-item"><i class="fa-solid fa-trophy"></i> 拍手叫好玩法奖</div>
+                    </div>
+
+                    <a href="https://store.steampowered.com/app/3533210/" target="_blank" class="project-link">
+                        前往 Steam <i class="fa-solid fa-arrow-right"></i>
+                    </a>
                 </div>
-            </div>
-
-            <!-- 详情展示 -->
-            <div class="detail-view" v-if="selectedResult">
-                <div class="detail-content">
-                    <div class="detail-header">
-                        <h1 class="detail-title">{{ selectedResult.name }}</h1>
-                        <p class="detail-subtitle" v-if="selectedResult.enName">{{ selectedResult.enName }}</p>
-                    </div>
-
-                    <div class="game-banner-container" v-if="selectedResult.banner">
-                        <img :src="selectedResult.banner" :alt="selectedResult.name" class="game-banner">
-                    </div>
-
-                    <div class="detail-body">
-                        <!-- 简单内容（如工作室介绍、久等了等） -->
-                        <div v-if="selectedResult.content" v-html="selectedResult.content"></div>
-
-                        <!-- 游戏详情（包含description） -->
-                        <div v-if="selectedResult.description">
-                            <div class="game-description" v-html="selectedResult.description"></div>
-
-                            <div 
-                                class="awards-section" 
-                                v-for="(awardGroup, idx) in selectedResult.awards" 
-                                :key="`award-${selectedResult.id}-${idx}`"
-                                v-if="selectedResult.awards && selectedResult.awards.length > 0"
-                            >
-                                <div class="award-text">
-                                    <div class="award-item">
-                                        <div class="award-header" v-if="awardGroup.organizer || awardGroup.event">
-                                            <span v-if="awardGroup.organizer">{{ awardGroup.organizer }}</span>
-                                            <template v-if="awardGroup.organizer && awardGroup.event"> - </template>
-                                            <span v-if="awardGroup.event">{{ awardGroup.event }}</span>
-                                        </div>
-                                        <div class="award-list">
-                                            <span class="award award-gold" v-for="award in awardGroup.items" :key="award">{{ award }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="award-media">
-                                    <img src="images/获奖.jpg" alt="获奖荣誉">
-                                </div>
-                            </div>
-
-                            <div class="detail-actions" v-if="selectedResult.steamUrl">
-                                <a :href="selectedResult.steamUrl" class="steam-button" target="_blank">
-                                    <i class="fab fa-steam"></i>
-                                    {{ selectedResult.steamButton || '在 Steam 上获取' }}
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="project-image-container">
+                    <img src="images/banner.jpg" alt="Invisible Room Banner" class="project-img">
                 </div>
-            </div>
-        </div>
+            </section>
+
+            <!-- Waiting Section -->
+            <section class="snap-page project-page fade-in-scroll" id="waiting-section">
+                <div class="project-info">
+                    <h2 class="project-title">久等了</h2>
+                    <div class="project-tags">
+                        <span class="tag">文字CRPG</span>
+                        <span class="tag">清新治愈</span>
+                        <span class="tag">开发中</span>
+                    </div>
+                    <p class="project-desc">
+                        一款关于时间和爱的文字CRPG。
+                    </p>
+                    <span class="project-link" style="opacity: 0.5; cursor: not-allowed;">
+                        COMING SOON
+                    </span>
+                </div>
+                <div class="collage-container">
+                    <img src="images/TIGS_IKeptYouWaiting_YahuiWang_500px.png" alt="Waiting Concept"
+                        class="main-collage-img">
+                    <!-- Decorative Characters -->
+                    <img src="images/王.png" class="char-img char-1" alt="Character Wang">
+                    <img src="images/史.png" class="char-img char-2" alt="Character Shi">
+                    <img src="images/慕.png" class="char-img char-3" alt="Character Mu">
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="snap-page">
+                <div class="copyright">&copy; 2025 Invisible Rabbit. All rights reserved.</div>
+                <div class="socials">
+                    <a href="https://store.steampowered.com/search/?developer=Invisible%20Rabbit" target="_blank"
+                        style="color: inherit; text-decoration: none;">Steam</a>
+                </div>
+            </footer>
+        </main>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@3.4.38/dist/vue.global.prod.js"></script>

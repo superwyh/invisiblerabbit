@@ -10,11 +10,19 @@ createApp({
             const roomSection = document.querySelector('#room-section');
             const waitingSection = document.querySelector('#waiting-section');
 
+            // If cursor elements don't exist, skip cursor functionality
+            if (!cursorDot || !cursorOutline) {
+                console.warn('Cursor elements not found, cursor functionality disabled');
+            }
+
             // Mouse Tracking & Cursor Logic
             let lastMouseX = window.innerWidth / 2;
             let lastMouseY = window.innerHeight / 2;
 
             const updateCursorState = (posX, posY) => {
+                // Skip if cursor elements don't exist
+                if (!cursorDot || !cursorOutline) return;
+
                 const blogSection = document.querySelector('#blog-section');
 
                 // Check for Blog Section using coordinates
@@ -50,10 +58,13 @@ createApp({
                 root.style.setProperty('--cursor-x', `${lastMouseX}px`);
                 root.style.setProperty('--cursor-y', `${lastMouseY}px`);
 
-                cursorDot.style.left = `${lastMouseX}px`;
-                cursorDot.style.top = `${lastMouseY}px`;
-                cursorOutline.style.left = `${lastMouseX}px`;
-                cursorOutline.style.top = `${lastMouseY}px`;
+                // Only update cursor position if elements exist
+                if (cursorDot && cursorOutline) {
+                    cursorDot.style.left = `${lastMouseX}px`;
+                    cursorDot.style.top = `${lastMouseY}px`;
+                    cursorOutline.style.left = `${lastMouseX}px`;
+                    cursorOutline.style.top = `${lastMouseY}px`;
+                }
 
                 updateCursorState(lastMouseX, lastMouseY);
             });

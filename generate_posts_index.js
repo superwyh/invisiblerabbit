@@ -43,6 +43,9 @@ try {
             const metadata = parseFrontmatter(content);
 
             if (metadata) {
+                // Remove frontmatter to get the actual content
+                const contentWithoutFrontmatter = content.replace(/^---\s*[\s\S]*?\s*---\s*/, '').trim();
+                
                 // Extract first image
                 const imageMatch = content.match(/!\[.*?\]\((.*?)\)/);
                 const image = imageMatch ? imageMatch[1].trim() : null;
@@ -51,7 +54,8 @@ try {
                     ...metadata,
                     slug: file.replace('.md', ''),
                     filename: file,
-                    image: image
+                    image: image,
+                    content: contentWithoutFrontmatter  // Include the markdown content
                 });
             }
         }

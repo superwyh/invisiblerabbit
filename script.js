@@ -278,17 +278,62 @@ createApp({
                     .catch(err => console.error('Fallback also failed:', err));
             });
 
+        // Helper function to process markdown content
+        const processMarkdownContent = (content) => {
+            // Parse markdown
+            let htmlContent = marked.parse(content);
+
+            // Fix relative image paths
+            // Images in blog_image/ or images/ are in root, others might be relative to posts/
+            // Ignores absolute paths (http://, https://, /)
+            htmlContent = htmlContent.replace(/src="([^"]+)"/g, (match, src) => {
+                if (src.startsWith('http') || src.startsWith('/') || src.startsWith('data:')) {
+                    return match;
+                }
+                // If image is in blog_image/ or images/, it's in root directory
+                if (src.startsWith('blog_image/') || src.startsWith('images/')) {
+                    return `src="${buildPath(src)}"`;
+                }
+                // Otherwise, assume it's relative to posts/
+                const imagePath = buildPath(`posts/${src}`);
+                return `src="${imagePath}"`;
+            });
+
+            // Fix relative links in markdown
+            htmlContent = htmlContent.replace(/href="([^"]+)"/g, (match, href) => {
+                if (href.startsWith('http') || href.startsWith('/') || href.startsWith('#')) {
+                    return match;
+                }
+                // If link is in blog_image/ or images/, it's in root directory
+                if (href.startsWith('blog_image/') || href.startsWith('images/')) {
+                    return `href="${buildPath(href)}"`;
+                }
+                // Otherwise, assume it's relative to posts/
+                const linkPath = buildPath(`posts/${href}`);
+                return `href="${linkPath}"`;
+            });
+
+            return htmlContent;
+        };
+
         // Open post
         const openPost = (post) => {
-            // Use filename directly (it should already be URL-safe)
+            // If post content is already embedded in posts.json, use it directly
+            if (post.content) {
+                const htmlContent = processMarkdownContent(post.content);
+                currentPost.value = {
+                    ...post,
+                    content: htmlContent
+                };
+                return;
+            }
+
+            // Otherwise, try to load from file (fallback for backwards compatibility)
             const postUrl = buildPath(`posts/${post.filename}`) + '?t=' + new Date().getTime();
-            
-            console.log('Loading post from:', postUrl);
             
             fetch(postUrl)
                 .then(response => {
                     if (!response.ok) {
-                        console.error(`Failed to load post: ${response.status} ${response.statusText}`, postUrl);
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     return response.text();
@@ -296,109 +341,16 @@ createApp({
                 .then(text => {
                     // Remove frontmatter
                     const content = text.replace(/^---[\s\S]*?---/, '').trim();
-
-                    // Parse markdown
-                    let htmlContent = marked.parse(content);
-
-                    // Fix relative image paths
-                    // Images in blog_image/ or images/ are in root, others might be relative to posts/
-                    // Ignores absolute paths (http://, https://, /)
-                    htmlContent = htmlContent.replace(/src="([^"]+)"/g, (match, src) => {
-                        if (src.startsWith('http') || src.startsWith('/') || src.startsWith('data:')) {
-                            return match;
-                        }
-                        // If image is in blog_image/ or images/, it's in root directory
-                        if (src.startsWith('blog_image/') || src.startsWith('images/')) {
-                            return `src="${buildPath(src)}"`;
-                        }
-                        // Otherwise, assume it's relative to posts/
-                        const imagePath = buildPath(`posts/${src}`);
-                        return `src="${imagePath}"`;
-                    });
-
-                    // Fix relative links in markdown
-                    htmlContent = htmlContent.replace(/href="([^"]+)"/g, (match, href) => {
-                        if (href.startsWith('http') || href.startsWith('/') || href.startsWith('#')) {
-                            return match;
-                        }
-                        // If link is in blog_image/ or images/, it's in root directory
-                        if (href.startsWith('blog_image/') || href.startsWith('images/')) {
-                            return `href="${buildPath(href)}"`;
-                        }
-                        // Otherwise, assume it's relative to posts/
-                        const linkPath = buildPath(`posts/${href}`);
-                        return `href="${linkPath}"`;
-                    });
-
+                    const htmlContent = processMarkdownContent(content);
                     currentPost.value = {
                         ...post,
                         content: htmlContent
                     };
                 })
                 .catch(error => {
-                    console.error('Error loading post:', error);
-                    // Try fallback path - try with leading slash
-                    const fallbackUrl1 = `/posts/${post.filename}?t=` + new Date().getTime();
-                    console.log('Trying fallback path 1:', fallbackUrl1);
-                    fetch(fallbackUrl1)
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error(`HTTP error! status: ${response.status}`);
-                            }
-                            return response.text();
-                        })
-                        .then(text => {
-                            const content = text.replace(/^---[\s\S]*?---/, '').trim();
-                            let htmlContent = marked.parse(content);
-                            htmlContent = htmlContent.replace(/src="([^"]+)"/g, (match, src) => {
-                                if (src.startsWith('http') || src.startsWith('/') || src.startsWith('data:')) {
-                                    return match;
-                                }
-                                // If image is in blog_image/ or images/, it's in root directory
-                                if (src.startsWith('blog_image/') || src.startsWith('images/')) {
-                                    return `src="${src}"`;
-                                }
-                                // Otherwise, assume it's relative to posts/
-                                return `src="posts/${src}"`;
-                            });
-                            currentPost.value = {
-                                ...post,
-                                content: htmlContent
-                            };
-                        })
-                        .catch(err => {
-                            console.error('Fallback 1 also failed:', err);
-                            // Try fallback path 2 - relative path
-                            const fallbackUrl2 = `posts/${post.filename}?t=` + new Date().getTime();
-                            console.log('Trying fallback path 2:', fallbackUrl2);
-                            fetch(fallbackUrl2)
-                                .then(response => {
-                                    if (!response.ok) {
-                                        throw new Error(`HTTP error! status: ${response.status}`);
-                                    }
-                                    return response.text();
-                                })
-                                .then(text => {
-                                    const content = text.replace(/^---[\s\S]*?---/, '').trim();
-                                    let htmlContent = marked.parse(content);
-                                    htmlContent = htmlContent.replace(/src="([^"]+)"/g, (match, src) => {
-                                        if (src.startsWith('http') || src.startsWith('/') || src.startsWith('data:')) {
-                                            return match;
-                                        }
-                                        // If image is in blog_image/ or images/, it's in root directory
-                                        if (src.startsWith('blog_image/') || src.startsWith('images/')) {
-                                            return `src="${src}"`;
-                                        }
-                                        // Otherwise, assume it's relative to posts/
-                                        return `src="posts/${src}"`;
-                                    });
-                                    currentPost.value = {
-                                        ...post,
-                                        content: htmlContent
-                                    };
-                                })
-                                .catch(err2 => console.error('Fallback 2 also failed:', err2));
-                        });
+                    console.error('Error loading post from file:', error);
+                    // If file loading fails and no embedded content, show error
+                    alert('无法加载文章内容，请稍后重试。');
                 });
         };
 

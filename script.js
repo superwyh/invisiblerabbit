@@ -283,9 +283,12 @@ createApp({
             // Use filename directly (it should already be URL-safe)
             const postUrl = buildPath(`posts/${post.filename}`) + '?t=' + new Date().getTime();
             
+            console.log('Loading post from:', postUrl);
+            
             fetch(postUrl)
                 .then(response => {
                     if (!response.ok) {
+                        console.error(`Failed to load post: ${response.status} ${response.statusText}`, postUrl);
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     return response.text();
@@ -298,12 +301,17 @@ createApp({
                     let htmlContent = marked.parse(content);
 
                     // Fix relative image paths
-                    // Replaces src="image.jpg" with src="posts/image.jpg" or basePath/posts/image.jpg
+                    // Images in blog_image/ or images/ are in root, others might be relative to posts/
                     // Ignores absolute paths (http://, https://, /)
                     htmlContent = htmlContent.replace(/src="([^"]+)"/g, (match, src) => {
                         if (src.startsWith('http') || src.startsWith('/') || src.startsWith('data:')) {
                             return match;
                         }
+                        // If image is in blog_image/ or images/, it's in root directory
+                        if (src.startsWith('blog_image/') || src.startsWith('images/')) {
+                            return `src="${buildPath(src)}"`;
+                        }
+                        // Otherwise, assume it's relative to posts/
                         const imagePath = buildPath(`posts/${src}`);
                         return `src="${imagePath}"`;
                     });
@@ -313,6 +321,11 @@ createApp({
                         if (href.startsWith('http') || href.startsWith('/') || href.startsWith('#')) {
                             return match;
                         }
+                        // If link is in blog_image/ or images/, it's in root directory
+                        if (href.startsWith('blog_image/') || href.startsWith('images/')) {
+                            return `href="${buildPath(href)}"`;
+                        }
+                        // Otherwise, assume it's relative to posts/
                         const linkPath = buildPath(`posts/${href}`);
                         return `href="${linkPath}"`;
                     });
@@ -324,10 +337,16 @@ createApp({
                 })
                 .catch(error => {
                     console.error('Error loading post:', error);
-                    // Try fallback path without base
-                    const fallbackUrl = `posts/${post.filename}?t=` + new Date().getTime();
-                    fetch(fallbackUrl)
-                        .then(response => response.text())
+                    // Try fallback path - try with leading slash
+                    const fallbackUrl1 = `/posts/${post.filename}?t=` + new Date().getTime();
+                    console.log('Trying fallback path 1:', fallbackUrl1);
+                    fetch(fallbackUrl1)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.text();
+                        })
                         .then(text => {
                             const content = text.replace(/^---[\s\S]*?---/, '').trim();
                             let htmlContent = marked.parse(content);
@@ -335,6 +354,11 @@ createApp({
                                 if (src.startsWith('http') || src.startsWith('/') || src.startsWith('data:')) {
                                     return match;
                                 }
+                                // If image is in blog_image/ or images/, it's in root directory
+                                if (src.startsWith('blog_image/') || src.startsWith('images/')) {
+                                    return `src="${src}"`;
+                                }
+                                // Otherwise, assume it's relative to posts/
                                 return `src="posts/${src}"`;
                             });
                             currentPost.value = {
@@ -342,7 +366,39 @@ createApp({
                                 content: htmlContent
                             };
                         })
-                        .catch(err => console.error('Fallback also failed:', err));
+                        .catch(err => {
+                            console.error('Fallback 1 also failed:', err);
+                            // Try fallback path 2 - relative path
+                            const fallbackUrl2 = `posts/${post.filename}?t=` + new Date().getTime();
+                            console.log('Trying fallback path 2:', fallbackUrl2);
+                            fetch(fallbackUrl2)
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error(`HTTP error! status: ${response.status}`);
+                                    }
+                                    return response.text();
+                                })
+                                .then(text => {
+                                    const content = text.replace(/^---[\s\S]*?---/, '').trim();
+                                    let htmlContent = marked.parse(content);
+                                    htmlContent = htmlContent.replace(/src="([^"]+)"/g, (match, src) => {
+                                        if (src.startsWith('http') || src.startsWith('/') || src.startsWith('data:')) {
+                                            return match;
+                                        }
+                                        // If image is in blog_image/ or images/, it's in root directory
+                                        if (src.startsWith('blog_image/') || src.startsWith('images/')) {
+                                            return `src="${src}"`;
+                                        }
+                                        // Otherwise, assume it's relative to posts/
+                                        return `src="posts/${src}"`;
+                                    });
+                                    currentPost.value = {
+                                        ...post,
+                                        content: htmlContent
+                                    };
+                                })
+                                .catch(err2 => console.error('Fallback 2 also failed:', err2));
+                        });
                 });
         };
 

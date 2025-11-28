@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invisible Rabbit | 看不见的兔子</title>
+    <title>Invisible Rabbit | 不见兔</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -24,11 +24,15 @@
                 <h1 class="hero-title">
                     INVISIBLE<br>RABBIT
                 </h1>
-                <p class="hero-subtitle">
-                    我们致力于探索看不见的游戏体验。
-                    在大多数人追逐光鲜画面的时代，我们潜入阴影，
-                    专注于挖掘那些被忽视的创意核心与独特玩法。
-                </p>
+                <!-- Marquee -->
+                <div class="hero-marquee-container">
+                    <div class="hero-marquee-content">
+                        <span>我们致力于探索看不见的游戏体验。 在大多数人追逐光鲜画面的时代，我们潜入阴影， 专注于挖掘那些被忽视的创意核心与独特玩法。</span>
+                        <span>我们致力于探索看不见的游戏体验。 在大多数人追逐光鲜画面的时代，我们潜入阴影， 专注于挖掘那些被忽视的创意核心与独特玩法。</span>
+                        <span>我们致力于探索看不见的游戏体验。 在大多数人追逐光鲜画面的时代，我们潜入阴影， 专注于挖掘那些被忽视的创意核心与独特玩法。</span>
+                        <span>我们致力于探索看不见的游戏体验。 在大多数人追逐光鲜画面的时代，我们潜入阴影， 专注于挖掘那些被忽视的创意核心与独特玩法。</span>
+                    </div>
+                </div>
             </section>
 
             <!-- Invisible Room Section -->
@@ -95,18 +99,57 @@
                 </div>
             </section>
 
-            <!-- Footer -->
-            <footer class="snap-page">
-                <div class="copyright">&copy; 2025 Invisible Rabbit. All rights reserved.</div>
-                <div class="socials">
-                    <a href="https://store.steampowered.com/search/?developer=Invisible%20Rabbit" target="_blank"
-                        style="color: inherit; text-decoration: none;">Steam</a>
+            <!-- Blog Section -->
+            <section class="snap-page project-page fade-in-scroll" id="blog-section">
+                <div class="blog-header">
+                    <h2 class="project-title" style="color: #fff; margin-bottom: 1rem;">Blog</h2>
                 </div>
-            </footer>
+
+                <div class="blog-scroll-container">
+                    <div class="blog-card" v-for="post in posts" :key="post.filename" @click="openPost(post)">
+                        <div class="blog-card-header"
+                            :style="post.image ? { backgroundImage: 'url(\'' + post.image + '\')' } : {}"></div>
+                        <div class="blog-card-content">
+                            <div class="blog-date">{{ post.date }}</div>
+                            <h3 class="blog-title">{{ post.title }}</h3>
+                            <p class="blog-desc">{{ post.description }}</p>
+                            <div class="blog-read-more">
+                                Read Article <i class="fa-solid fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-header" style="margin-top: 2rem;">
+                    <a href="https://store.steampowered.com/search/?developer=Invisible%20Rabbit" target="_blank"
+                        style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.9rem;">
+                        Find us on Steam <i class="fa-brands fa-steam"></i>
+                    </a>
+                </div>
+            </section>
         </main>
+
+        <!-- Blog Post Overlay -->
+        <transition name="fade">
+            <div class="blog-overlay" v-if="currentPost" @click.self="closePost">
+                <div class="blog-overlay-content">
+                    <button class="close-btn" @click="closePost">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+
+                    <div class="blog-article-header">
+                        <div class="blog-date">{{ currentPost.date }}</div>
+                        <h1 class="article-title">{{ currentPost.title }}</h1>
+                    </div>
+
+                    <div class="blog-article-body" v-html="currentPost.content"></div>
+                </div>
+            </div>
+        </transition>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@3.4.38/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="script.js"></script>
 </body>
 

@@ -10,25 +10,75 @@ createApp({
             const roomSection = document.querySelector('#room-section');
             const waitingSection = document.querySelector('#waiting-section');
 
-            // Mouse Tracking
+            // Mouse Tracking & Cursor Logic
+            let lastMouseX = window.innerWidth / 2;
+            let lastMouseY = window.innerHeight / 2;
+
+            const updateCursorState = (posX, posY) => {
+                const blogSection = document.querySelector('#blog-section');
+
+                // Check for Blog Section using coordinates
+                let isOverBlog = false;
+                if (blogSection) {
+                    const rect = blogSection.getBoundingClientRect();
+                    if (posY >= rect.top && posY <= rect.bottom) {
+                        isOverBlog = true;
+                    }
+                }
+
+                if (isOverBlog) {
+                    cursorDot.classList.add('on-blog');
+                    cursorOutline.classList.add('on-blog');
+                } else {
+                    cursorDot.classList.remove('on-blog');
+                    cursorOutline.classList.remove('on-blog');
+                }
+
+                // Check for Interactive Elements
+                const elementUnderCursor = document.elementFromPoint(posX, posY);
+                if (elementUnderCursor && elementUnderCursor.closest('a, button, .blog-card, .project-link, .close-btn')) {
+                    cursorOutline.classList.add('cursor-active');
+                } else {
+                    cursorOutline.classList.remove('cursor-active');
+                }
+            };
+
             window.addEventListener('mousemove', (e) => {
-                const posX = e.clientX;
-                const posY = e.clientY;
+                lastMouseX = e.clientX;
+                lastMouseY = e.clientY;
 
-                root.style.setProperty('--cursor-x', `${posX}px`);
-                root.style.setProperty('--cursor-y', `${posY}px`);
+                root.style.setProperty('--cursor-x', `${lastMouseX}px`);
+                root.style.setProperty('--cursor-y', `${lastMouseY}px`);
 
-                cursorDot.style.left = `${posX}px`;
-                cursorDot.style.top = `${posY}px`;
-                cursorOutline.style.left = `${posX}px`;
-                cursorOutline.style.top = `${posY}px`;
+                cursorDot.style.left = `${lastMouseX}px`;
+                cursorDot.style.top = `${lastMouseY}px`;
+                cursorOutline.style.left = `${lastMouseX}px`;
+                cursorOutline.style.top = `${lastMouseY}px`;
+
+                updateCursorState(lastMouseX, lastMouseY);
             });
 
-            // Scroll Logic
+            window.addEventListener('scroll', () => {
+                updateCursorState(lastMouseX, lastMouseY);
+            });
+
+            // Scroll Effects (Spotlight & Theme)
             const handleScrollEffects = () => {
                 const windowHeight = window.innerHeight;
+                const blogSection = document.querySelector('#blog-section');
 
                 let opacity = 0;
+
+                // Check if we're in blog section (for spotlight)
+                if (blogSection) {
+                    const blogRect = blogSection.getBoundingClientRect();
+                    if (blogRect.top < windowHeight * 0.5 && blogRect.bottom > windowHeight * 0.5) {
+                        // In blog section, disable spotlight
+                        opacity = 0;
+                        root.style.setProperty('--spotlight-opacity', opacity);
+                        return;
+                    }
+                }
 
                 if (roomSection) {
                     const roomRect = roomSection.getBoundingClientRect();
@@ -162,9 +212,45 @@ createApp({
                 setTimeout(triggerGlitch, nextDelay);
             }
 
-            triggerGlitch();
         });
 
-        return {};
+        // Blog functionality
+        const posts = ref([]);
+        const currentPost = ref(null);
+
+        // Load posts
+        fetch('posts.json?t=' + new Date().getTime())
+            .then(response => response.json())
+            .then(data => {
+                posts.value = data;
+            })
+            .catch(error => console.error('Error loading posts:', error));
+
+        // Open post
+        const openPost = (post) => {
+            fetch(`posts/${post.filename}?t=` + new Date().getTime())
+                .then(response => response.text())
+                .then(text => {
+                    // Remove frontmatter
+                    const content = text.replace(/^---[\s\S]*?---/, '').trim();
+                    currentPost.value = {
+                        ...post,
+                        content: marked.parse(content)
+                    };
+                })
+                .catch(error => console.error('Error loading post:', error));
+        };
+
+        // Close post
+        const closePost = () => {
+            currentPost.value = null;
+        };
+
+        return {
+            posts,
+            currentPost,
+            openPost,
+            closePost
+        };
     }
 }).mount('#app');

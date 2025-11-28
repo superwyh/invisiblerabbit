@@ -218,27 +218,121 @@ createApp({
         const posts = ref([]);
         const currentPost = ref(null);
 
+        // Get base path for GitHub Pages
+        const getBasePath = () => {
+            const path = window.location.pathname;
+            // If we're at root (/), no base path needed
+            if (path === '/' || path === '/index.html') {
+                return '';
+            }
+            // If deployed to GitHub Pages with repo name, extract base path
+            // e.g., /invisiblerabbit/ -> /invisiblerabbit
+            // e.g., /invisiblerabbit/index.html -> /invisiblerabbit
+            const match = path.match(/^\/([^\/]+)/);
+            if (match && match[1] !== 'index.html') {
+                return '/' + match[1];
+            }
+            return '';
+        };
+
+        const basePath = getBasePath();
+        
+        // Helper to build path
+        const buildPath = (path) => {
+            if (basePath) {
+                return `${basePath}${path.startsWith('/') ? path : '/' + path}`;
+            }
+            return path;
+        };
+
         // Load posts
-        fetch('posts.json?t=' + new Date().getTime())
-            .then(response => response.json())
+        fetch(buildPath('posts.json') + '?t=' + new Date().getTime())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
                 posts.value = data;
             })
-            .catch(error => console.error('Error loading posts:', error));
+            .catch(error => {
+                console.error('Error loading posts:', error);
+                // Try fallback path without base
+                fetch('posts.json?t=' + new Date().getTime())
+                    .then(response => response.json())
+                    .then(data => {
+                        posts.value = data;
+                    })
+                    .catch(err => console.error('Fallback also failed:', err));
+            });
 
         // Open post
         const openPost = (post) => {
-            fetch(`posts/${post.filename}?t=` + new Date().getTime())
-                .then(response => response.text())
+            // Use filename directly (it should already be URL-safe)
+            const postUrl = buildPath(`posts/${post.filename}`) + '?t=' + new Date().getTime();
+            
+            fetch(postUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
                 .then(text => {
                     // Remove frontmatter
                     const content = text.replace(/^---[\s\S]*?---/, '').trim();
+
+                    // Parse markdown
+                    let htmlContent = marked.parse(content);
+
+                    // Fix relative image paths
+                    // Replaces src="image.jpg" with src="posts/image.jpg" or basePath/posts/image.jpg
+                    // Ignores absolute paths (http://, https://, /)
+                    htmlContent = htmlContent.replace(/src="([^"]+)"/g, (match, src) => {
+                        if (src.startsWith('http') || src.startsWith('/') || src.startsWith('data:')) {
+                            return match;
+                        }
+                        const imagePath = buildPath(`posts/${src}`);
+                        return `src="${imagePath}"`;
+                    });
+
+                    // Fix relative links in markdown
+                    htmlContent = htmlContent.replace(/href="([^"]+)"/g, (match, href) => {
+                        if (href.startsWith('http') || href.startsWith('/') || href.startsWith('#')) {
+                            return match;
+                        }
+                        const linkPath = buildPath(`posts/${href}`);
+                        return `href="${linkPath}"`;
+                    });
+
                     currentPost.value = {
                         ...post,
-                        content: marked.parse(content)
+                        content: htmlContent
                     };
                 })
-                .catch(error => console.error('Error loading post:', error));
+                .catch(error => {
+                    console.error('Error loading post:', error);
+                    // Try fallback path without base
+                    const fallbackUrl = `posts/${post.filename}?t=` + new Date().getTime();
+                    fetch(fallbackUrl)
+                        .then(response => response.text())
+                        .then(text => {
+                            const content = text.replace(/^---[\s\S]*?---/, '').trim();
+                            let htmlContent = marked.parse(content);
+                            htmlContent = htmlContent.replace(/src="([^"]+)"/g, (match, src) => {
+                                if (src.startsWith('http') || src.startsWith('/') || src.startsWith('data:')) {
+                                    return match;
+                                }
+                                return `src="posts/${src}"`;
+                            });
+                            currentPost.value = {
+                                ...post,
+                                content: htmlContent
+                            };
+                        })
+                        .catch(err => console.error('Fallback also failed:', err));
+                });
         };
 
         // Close post

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>I kept you waiting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        /* Ghibli-esque Sky Gradient + Warmth */
+        background: linear-gradient(180deg, #E3F2FD 0%, #F1F8E9 60%, #FFF8E1 100%);
+        font-family: 'Noto Sans SC', sans-serif;
+        color: #455A64;
+        overflow-x: hidden;
+      }
+      
+      /* Noise Texture Overlay for "Paper/Film" feel */
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 9999;
+        mix-blend-mode: multiply;
+      }
+
+      h1, h2, h3, h4, .serif {
+        font-family: 'Noto Serif SC', serif;
+      }
+      .cinzel {
+        font-family: 'Cinzel', serif;
+      }
+      
+      html { scroll-behavior: smooth; }
+
+      /* Stylized Scrollbar */
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: rgba(255,255,255,0.5); }
+      ::-webkit-scrollbar-thumb { 
+        background: #90A4AE; 
+        border-radius: 4px; 
+        border: 2px solid transparent; 
+        background-clip: content-box; 
+      }
+      ::-webkit-scrollbar-thumb:hover { background-color: #607D8B; }
+
+      .pixelated { image-rendering: pixelated; }
+
+      /* Animations */
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-8px); }
+      }
+      .animate-float { animation: float 5s ease-in-out infinite; }
+      
+      @keyframes cloud-move {
+        0% { transform: translateX(-10%); opacity: 0; }
+        10% { opacity: 0.8; }
+        90% { opacity: 0.8; }
+        100% { transform: translateX(110vw); opacity: 0; }
+      }
+      .cloud-anim-1 { animation: cloud-move 60s linear infinite; }
+      .cloud-anim-2 { animation: cloud-move 90s linear infinite; animation-delay: -30s; }
+
+      @keyframes twinkle {
+        0%, 100% { opacity: 0; transform: scale(0.5); }
+        50% { opacity: 1; transform: scale(1.2); }
+      }
+      .animate-twinkle { animation: twinkle 3s ease-in-out infinite; }
+
+      @keyframes fall {
+        0% { transform: translate(0, -10px) rotate(0deg); opacity: 0; }
+        10% { opacity: 1; }
+        100% { transform: translate(100px, 100vh) rotate(360deg); opacity: 0; }
+      }
+      .particle-petal { animation: fall 15s linear infinite; }
+      
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

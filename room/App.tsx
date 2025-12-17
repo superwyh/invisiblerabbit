@@ -188,7 +188,7 @@ function App() {
                    <div className="relative border-4 border-neutral-800 p-1 bg-black transform transition-transform duration-700 group-hover:rotate-1 group-hover:scale-105 z-10">
                     <div className="absolute inset-0 bg-red-600/10 mix-blend-color-dodge z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <img 
-                      src="/img/看不见的房间kv图.png" 
+                      src="/img/看不见的房间KV图.png" 
                       alt="Game Concept Art" 
                       className="w-full h-auto grayscale contrast-125"
                     />

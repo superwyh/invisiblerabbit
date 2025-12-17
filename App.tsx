@@ -132,7 +132,7 @@ const MainApp = () => {
             className="glass-card rounded-full pl-6 pr-2 py-3 md:px-8 md:py-4 flex items-center shadow-lg shadow-blue-100/20 pointer-events-auto"
         >
             <a href="#" className="flex items-center justify-center text-rabbit-text hover:text-rabbit-accent transition-colors mr-4 md:mr-8">
-               <img src="/img/logo.png" alt="Invisible Rabbit" className="h-5 w-auto" />
+               <img src="/img/Logo.png" alt="Invisible Rabbit" className="h-5 w-auto" />
             </a>
             
             <div className="h-4 w-[1px] bg-gray-300 hidden md:block"></div>
@@ -247,7 +247,7 @@ const MainApp = () => {
                                 className="mx-6 bg-white/90 backdrop-blur-xl shadow-[0_0_30px_rgba(196,181,253,0.3)] p-6 rounded-[2rem] border border-white relative"
                              >
                                  <div className="absolute inset-0 rounded-[2rem] border border-rabbit-accent/20 animate-pulse"></div>
-                                 <img src="/img/logo.png" alt="Invisible Rabbit" className="h-14 w-auto relative z-10" />
+                                 <img src="/img/Logo.png" alt="Invisible Rabbit" className="h-14 w-auto relative z-10" />
                              </motion.div>
                              
                              <motion.div initial={{ width: 0 }} animate={{ width: "30vw" }} transition={{ delay: 1, duration: 1.5 }} className="h-[1px] bg-gradient-to-r from-transparent via-rabbit-accent/50 to-transparent" />
@@ -435,7 +435,7 @@ const MainApp = () => {
                     whileHover={{ scale: 1.1, rotate: 10 }}
                     className="p-5 bg-white shadow-xl shadow-blue-100 rounded-[2rem] border border-white"
                 >
-                    <img src="/img/logo.png" alt="Invisible Rabbit" className="h-10 w-auto" />
+                    <img src="/img/Logo.png" alt="Invisible Rabbit" className="h-10 w-auto" />
                 </motion.div>
                 
                 <h2 className="text-4xl md:text-6xl font-serif italic text-rabbit-text leading-tight">

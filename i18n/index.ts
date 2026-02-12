@@ -17,8 +17,13 @@ i18n.use(initReactI18next).init({
   resources,
   lng: defaultLang,
   fallbackLng: 'zh',
+  keySeparator: '.',
+  nsSeparator: false,
   interpolation: {
     escapeValue: false,
+  },
+  react: {
+    useSuspense: false,
   },
 });
 

@@ -9,7 +9,9 @@ interface GameViewProps {
 const GameView: React.FC<GameViewProps> = ({ game }) => {
   const { t } = useTranslation();
   const title = t(`games.${game.id}.title`);
-  const rawDesc = t(`games.${game.id}.description`, { returnObjects: true });
+  // 确保使用正确的 key 路径，i18next 需要字符串 key
+  const descKey = `games.${String(game.id)}.description`;
+  const rawDesc = t(descKey, { returnObjects: true });
   const paragraphs = Array.isArray(rawDesc) ? rawDesc : [rawDesc];
 
   return (

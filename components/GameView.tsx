@@ -31,10 +31,21 @@ const GameView: React.FC<GameViewProps> = ({ game }) => {
           </div>
           
           <div className="mt-12">
-            <button className="text-xl md:text-2xl font-bold hover:text-gray-400 transition-colors uppercase tracking-widest flex items-center group">
-              {t('game.steam')}
-              <span className="ml-4 transition-transform group-hover:translate-x-2">→</span>
-            </button>
+            {game.id === 1 ? (
+              <a
+                href="https://store.steampowered.com/app/3533210/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xl md:text-2xl font-bold hover:text-gray-400 transition-colors uppercase tracking-widest flex items-center group"
+              >
+                {t('game.steam')}
+                <span className="ml-4 transition-transform group-hover:translate-x-2">→</span>
+              </a>
+            ) : (
+              <div className="text-xl md:text-2xl font-bold text-gray-400 uppercase tracking-widest">
+                {t('game.inDevelopment')}
+              </div>
+            )}
           </div>
         </div>
       </div>

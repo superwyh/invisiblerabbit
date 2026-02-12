@@ -27,6 +27,7 @@ export default {
   },
   game: {
     steam: 'Steam',
+    inDevelopment: 'In Development',
   },
   about: {
     title: 'About',

@@ -1,9 +1,9 @@
-# 推送到 main 时构建并部署到 GitHub Pages（含 CNAME 自定义域名）
+# 推送到 master 时构建并部署到 GitHub Pages（含 CNAME 自定义域名）
 name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [master]
 
 permissions:
   contents: read

@@ -13,7 +13,9 @@ try {
   execSync('git commit -m "deploy"', { stdio: 'inherit' });
 }
 
-console.log('Pushing to origin main...');
-execSync('git push origin main', { stdio: 'inherit' });
+// Get current branch name
+const currentBranch = execSync('git rev-parse --abbrev-ref HEAD', { encoding: 'utf-8' }).trim();
+console.log(`Pushing to origin ${currentBranch}...`);
+execSync(`git push origin ${currentBranch}`, { stdio: 'inherit' });
 
 console.log('Deploy done. GitHub Actions will publish to Pages shortly.');

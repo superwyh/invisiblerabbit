@@ -20,9 +20,9 @@ export default {
       ],
     },
     2: {
-      title: 'Long Wait',
+      title: '⬆️⬇️⬅️➡️',
       category: 'Narrative / Healing',
-      description: 'A story about waiting and reunion. Over time we lose many things, and in the end we find the pieces that matter most. A warm, modern fable.',
+      description: 'A game about ⬆️⬇️⬅️➡️.',
     },
   },
   game: {

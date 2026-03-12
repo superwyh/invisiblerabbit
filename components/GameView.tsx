@@ -50,15 +50,17 @@ const GameView: React.FC<GameViewProps> = ({ game }) => {
         </div>
       </div>
 
-      <div className="flex-1 flex items-center justify-center">
-        <div className="relative w-full max-h-[60vh] bg-gray-50 overflow-hidden group">
-          <img 
-            src={game.imageUrl} 
-            alt={title} 
-            className="w-full h-full max-h-[60vh] object-contain transition-all duration-1000 ease-in-out transform group-hover:scale-105"
-          />
+      {game.imageUrl && (
+        <div className="flex-1 flex items-center justify-center">
+          <div className="relative w-full max-h-[60vh] bg-gray-50 overflow-hidden group">
+            <img 
+              src={game.imageUrl} 
+              alt={title} 
+              className="w-full h-full max-h-[60vh] object-contain transition-all duration-1000 ease-in-out transform group-hover:scale-105"
+            />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

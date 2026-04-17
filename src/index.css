@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Nunito", monospace;
+  
+  --color-accent: #E60012; /* Nintendo Red */
+  --color-dark: #2D2D2D;
+  --color-bg-main: #F7F8F9; /* Considerably lighter friendly gray */
+  --color-surface: #FFFFFF;
+  --color-text-main: #2D2D2D;
+  --color-text-dim: #7A7A7A;
+  --color-border: #EAEAEA;
+}
+
+@layer base {
+  body {
+    @apply bg-bg-main text-text-main font-sans overflow-hidden antialiased;
+  }
+}
+
+/* Custom Scrollbar for better aesthetic */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-border hover:bg-text-dim;
+  border-radius: 10px;
+}

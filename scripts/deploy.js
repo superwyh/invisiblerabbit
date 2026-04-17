@@ -82,7 +82,7 @@ if (!hasOriginRemote()) {
 }
 
 console.log("Staging deployable files...");
-run("git", ["add", "-A", ".", "--", ":!NewIR", ":!InvisibleRoom"]);
+run("git", ["add", "-A"]);
 
 let hasStagedChanges = true;
 try {

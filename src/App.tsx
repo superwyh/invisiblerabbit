@@ -16,6 +16,14 @@ interface GameCopy {
   tags?: string[];
 }
 
+interface TeamMemberCopy {
+  name: string;
+  role: string;
+  bio: string;
+  avatar: string;
+  image?: string;
+}
+
 interface LocaleCopy {
   langLabel: string;
   flagship: string;
@@ -25,10 +33,16 @@ interface LocaleCopy {
   wePlayTitle: string;
   aboutP1: string;
   aboutP2: string;
+  aboutP3?: string;
+  aboutP4?: string;
   philosophy: string;
   philosophyVal: string;
   location: string;
   locationVal: string;
+  teamLabel?: string;
+  teamTitle?: string;
+  teamIntro?: string;
+  teamMembers?: TeamMemberCopy[];
   labHeroPrefix: string;
   labHeroTitle: string;
   labD1_1: string;
@@ -37,6 +51,7 @@ interface LocaleCopy {
   labD2_1: string;
   labD2_hl: string;
   labD2_2: string;
+  labD4?: string;
   labD3: string;
   goal1: string;
   goal1Val: string;
@@ -71,23 +86,50 @@ const DICT: Record<Language, LocaleCopy> = {
     wePlayTitle: "About",
     aboutP1: "北京不见兔科技有限公司成立于 2025 年，团队分布于北京与石家庄，专注于 Steam 独立游戏开发。",
     aboutP2: "我们有两条并行的产品线：一条用来冒险，做一些玩法上更实验、更偏探索性的作品 -- 它们不一定安全，也不一定从一开始就能被定义为“好玩”，但我们愿意为新的体验去承担不确定性；另一条用来沉淀，做一些类型更明确、玩法更成熟、完成度更高的作品，把游戏最朴素的乐趣认真做到位。",
+    teamLabel: "团队",
+    teamTitle: "",
+    teamIntro: "遇见在这个小房间里打造无限游戏的热血生物。",
+    teamMembers: [
+      {
+        name: "王兔兔",
+        role: "策划 / 程序",
+        bio: "这个团队人不多，但工种很齐，基本都是我。",
+        avatar: "王",
+        image: "/IMG/1.jpg",
+      },
+      {
+        name: "锅子",
+        role: "美术 / 铲屎",
+        bio: "虽然干活慢一点，但站在那里就很有说服力。",
+        avatar: "锅",
+        image: "/IMG/2.jpg",
+      },
+      {
+        name: "11",
+        role: "保安",
+        bio: "排便不太顺利，出手倒是很利索。",
+        avatar: "11",
+        image: "/IMG/3.png",
+      },
+    ],
     philosophy: "Philosophy",
-    philosophyVal: "给现实留个后门。",
+    philosophyVal: "游戏拒绝旁观。",
     location: "Location",
     locationVal: "北京 | 石家庄",
     labHeroPrefix: "Lab Prototypes",
-    labHeroTitle: "创意原型的孵化池。",
-    labD1_1: "我们一直觉得，现在很多游戏已经太像彼此了。成熟当然不是坏事，但当太多作品都沿着同样的路径打磨，游戏就会越来越稳，也越来越少让人意外。所以我们想留一条路给那些",
-    labD1_hl: "还不够成熟、还不够标准、甚至还不太好定义",
-    labD1_2: "的东西。",
-    labD2_1: "这条产品线会更关注机制上的新鲜感，去试一些没那么常见的结构、规则和交互方式。它们不一定每次都成立，也不一定每次都完美，但至少应该提出一点新的可能。哪怕只是给玩家一点新感觉，或者给同行一点新启发。我们不把实验当成噱头。比起“为了不同而不同”，我们更在意的是：",
-    labD2_hl: "能不能真的做出一点以前少见的体验",
-    labD2_2: "。",
+    labHeroTitle: "先让怪东西存在。",
+    labD1_1: "现在很多游戏确实有点太像了。大家都越来越会做游戏了，知道什么样的节奏更顺，什么样的设计更容易让人接受，什么地方该打磨、什么地方该收住。这样当然没什么不好，只是做得多了、玩得多了，难免会觉得，很多东西都太熟了。好玩还是好玩，但惊喜变少了，那种“这也可以”的时候也变少了。所以我们想给另一种东西留个地方。它们可能",
+    labD1_hl: "还不够成熟，还不太好归类，刚拿出来的时候甚至有点怪",
+    labD1_2: "，让人一下子说不清这到底算什么。但恰恰是这种东西最值得试。因为很多真正新的东西，一开始本来就不会那么标准，也不会一上来就显得很完整。",
+    labD2_1: "这条线更在意",
+    labD2_hl: "机制上的新鲜感",
+    labD2_2: "。我们会去试一些不那么常见的规则、结构和交互方式，也会去做一些看上去有点别扭、但做下去也许会长出新东西的点子。它们不一定每次都成功，也不一定每次都特别完整，但至少应该带来一点以前不太有的东西，哪怕只是一个新的感觉，一个让人记一下的瞬间，或者一个“原来还能这样”的念头。",
+    labD4: "我们不是为了显得特别才去做这些东西，也不是为了怪而怪。我们只是觉得，游戏里总该留一点地方，给那些还没被做熟的想法。",
     labD3: "右侧是一些我做完的怪点子游戏。",
     goal1: "Goal 01",
-    goal1Val: "把还没被做旧的机制做出来。",
+    goal1Val: "做出值得亲手经历的瞬间。",
     goal2: "Goal 02",
-    goal2Val: "给游戏行业增加一点新的参考答案。",
+    goal2Val: "把怪念头做成玩法。",
     statusLabel: "Current Status",
     statusVal: "开发中",
     platformLabel: "Target Platform",
@@ -99,7 +141,13 @@ const DICT: Record<Language, LocaleCopy> = {
     games: {
       "long-wait": {
         title: "久等了",
-        desc: "有些爱留在夏天，有些人停在昨天。而记忆，总会把我们带回那个模糊又明亮的2000年。在现实与梦境交叠的时间裂缝里，做出你的选择，走进一场关于回忆、怀念与重逢的故事。",
+        desc: "有些爱留在夏天，有些人停在昨天。记忆总会把人带回那个模糊又明亮的 2000 年。在现实与梦境交叠的裂缝中，你将穿行于两条交错的时间线之间，重新面对一段关于爱、遗憾与悔恨的往事。",
+        detail: [
+          "有些爱留在夏天，有些人停在昨天。",
+          "记忆总会在某个时刻，把人重新带回那个模糊又明亮的 2000 年。旧街道、旧电视、旧磁带，还有那些以为已经过去的人和事，其实一直都还留在时间里。",
+          "在现实与梦境交叠的裂缝中，你将穿行于两条彼此交错的时间线之间，一点点拼出一段关于爱、遗憾与悔恨的往事。那些没说出口的话、没来得及做出的选择，以及从未真正放下的告别，都会在回望中重新浮现。",
+          "这一次，你不只是回到过去，还要重新面对那段一直没过去的事。",
+        ],
       },
       "invisible-room": {
         title: "看不见的房间",
@@ -430,6 +478,121 @@ export default function App() {
   const formalGames = GAME_METADATA.filter((g) => g.category === "formal");
   const experimentalGames = GAME_METADATA.filter((g) => g.category === "experimental");
   const selectedGame = GAME_METADATA.find((g) => g.id === activeGameId) || GAME_METADATA[0];
+  const localizedTeam = {
+    zh: {
+      label: "团队",
+      title: "",
+      intro: "遇见在这个小房间里打造无限游戏的热血生物。",
+      members: [
+        {
+          name: "王兔兔",
+          role: "策划 / 程序",
+          bio: "这个团队人不多，但工种很齐，基本都是我。",
+          avatar: "王",
+          image: "/IMG/1.jpg",
+        },
+        {
+          name: "锅子",
+          role: "美术 / 铲屎",
+          bio: "虽然干活慢一点，但站在那里就很有说服力。",
+          avatar: "锅",
+          image: "/IMG/2.jpg",
+        },
+        {
+          name: "11",
+          role: "保安",
+          bio: "排便不太顺利，出手倒是很利索。",
+          avatar: "11",
+          image: "/IMG/3.png",
+        },
+      ],
+    },
+    en: {
+      label: "Team",
+      title: "",
+      intro: "Meet the hot-blooded creatures building limitless games in this little room.",
+      members: [
+        {
+          name: "Wang Tutu",
+          role: "Design / Programming",
+          bio: "The team is small, but the roles are surprisingly complete. Most of them are basically me.",
+          avatar: "W",
+          image: "/IMG/1.jpg",
+        },
+        {
+          name: "Guozi",
+          role: "Art / Cat Care",
+          bio: "Works a little slowly, but is convincing just by standing there.",
+          avatar: "G",
+          image: "/IMG/2.jpg",
+        },
+        {
+          name: "11",
+          role: "Security",
+          bio: "Bathroom business is not always smooth, but the response time definitely is.",
+          avatar: "11",
+          image: "/IMG/3.png",
+        },
+      ],
+    },
+    ja: {
+      label: "チーム",
+      title: "",
+      intro: "この小さな部屋で、無限のゲームをつくっている熱血生物たちに会ってください。",
+      members: [
+        {
+          name: "王兔兔",
+          role: "企画 / プログラム",
+          bio: "人数は多くありませんが、役割はだいたい全部そろっています。ほとんど私です。",
+          avatar: "王",
+          image: "/IMG/1.jpg",
+        },
+        {
+          name: "锅子",
+          role: "アート / 猫係",
+          bio: "作業は少しゆっくりですが、そこに立っているだけで妙な説得力があります。",
+          avatar: "锅",
+          image: "/IMG/2.jpg",
+        },
+        {
+          name: "11",
+          role: "警備",
+          bio: "お通じは少し不安定ですが、動き出すとかなり素早いです。",
+          avatar: "11",
+          image: "/IMG/3.png",
+        },
+      ],
+    },
+    ko: {
+      label: "팀",
+      title: "",
+      intro: "이 작은 방에서 무한한 게임을 만들고 있는 열혈 생물들을 만나 보세요.",
+      members: [
+        {
+          name: "王兔兔",
+          role: "기획 / 프로그래밍",
+          bio: "팀 인원은 많지 않지만 맡는 일은 꽤 다양합니다. 사실 대부분은 저예요.",
+          avatar: "왕",
+          image: "/IMG/1.jpg",
+        },
+        {
+          name: "锅子",
+          role: "아트 / 집사",
+          bio: "일은 조금 느리지만, 거기 서 있기만 해도 이상하게 설득력이 있습니다.",
+          avatar: "锅",
+          image: "/IMG/2.jpg",
+        },
+        {
+          name: "11",
+          role: "보안",
+          bio: "배변은 조금 답답하지만, 움직일 때 손은 아주 빠릅니다.",
+          avatar: "11",
+          image: "/IMG/3.png",
+        },
+      ],
+    },
+  } satisfies Record<Language, { label: string; title: string; intro: string; members: TeamMemberCopy[] }>;
+  const currentTeam = localizedTeam[lang];
 
   const toggleLang = () => {
     const sequence: Language[] = ["zh", "en", "ja", "ko"];
@@ -445,29 +608,82 @@ export default function App() {
           animate={{ opacity: 1, y: 0 }}
           className="w-full md:flex-1 p-4 md:p-8 lg:p-12 md:overflow-y-auto bg-bg-main shrink-0 flex flex-col min-h-max"
         >
-          <div className="bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-border p-6 md:p-12 flex-1 flex flex-col shrink-0">
-            <div className="inline-block bg-blue-100 text-blue-600 px-3 md:px-4 py-1.5 md:py-2 rounded-full font-black text-xs md:text-sm uppercase tracking-widest mb-4 md:mb-6 self-start">
-              {t.studioProfile}
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-text-main mb-6 md:mb-8">{t.wePlayTitle}</h1>
-            <div className="text-base md:text-xl text-text-dim font-bold space-y-4 md:space-y-6 max-w-2xl">
-              <p>{t.aboutP1}</p>
-              <p>{t.aboutP2}</p>
-            </div>
+          <div className="bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-border p-6 md:p-12 flex-1 shrink-0 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-accent/4 rounded-full blur-3xl -translate-y-1/3 translate-x-1/3 pointer-events-none" />
+            <div className="relative z-10 grid grid-cols-1 xl:grid-cols-[minmax(0,1.12fr)_minmax(360px,0.88fr)] gap-10 md:gap-12 xl:gap-16">
+              <section className="min-w-0">
+                <div className="inline-block bg-blue-100 text-blue-600 px-3 md:px-4 py-1.5 md:py-2 rounded-full font-black text-xs md:text-sm uppercase tracking-widest mb-4 md:mb-6 self-start">
+                  {t.studioProfile}
+                </div>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-text-main mb-6 md:mb-8">{t.wePlayTitle}</h1>
+                <div className="mb-6 md:mb-8">
+                  <img
+                    src="/IMG/logo.png"
+                    alt="Invisible Rabbit logo"
+                    className="h-20 md:h-24 lg:h-28 w-auto object-contain"
+                  />
+                </div>
+                <div className="text-base md:text-xl text-text-dim font-bold space-y-4 md:space-y-6 max-w-2xl">
+                  {[t.aboutP1, t.aboutP2, t.aboutP3, t.aboutP4].filter(Boolean).map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </div>
 
-            <div className="mt-8 md:mt-16 grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 border-t-4 border-bg-main pt-8 md:pt-12 max-w-2xl">
-              <div>
-                <div className="text-accent font-black uppercase tracking-widest mb-1.5 md:mb-2 text-xs md:text-sm flex items-center gap-2">
-                  <Star size={16} fill="#E60012" /> {t.philosophy}
+                <div className="mt-8 md:mt-16 grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 border-t-4 border-bg-main pt-8 md:pt-12 max-w-2xl">
+                  <div>
+                    <div className="text-accent font-black uppercase tracking-widest mb-1.5 md:mb-2 text-xs md:text-sm flex items-center gap-2">
+                      <Star size={16} fill="#E60012" /> {t.philosophy}
+                    </div>
+                    <div className="text-base md:text-lg font-bold text-text-main">{t.philosophyVal}</div>
+                  </div>
+                  <div>
+                    <div className="text-accent font-black uppercase tracking-widest mb-1.5 md:mb-2 text-xs md:text-sm flex items-center gap-2">
+                      <Star size={16} fill="#E60012" /> {t.location}
+                    </div>
+                    <div className="text-base md:text-lg font-bold text-text-main">{t.locationVal}</div>
+                  </div>
                 </div>
-                <div className="text-base md:text-lg font-bold text-text-main">{t.philosophyVal}</div>
-              </div>
-              <div>
-                <div className="text-accent font-black uppercase tracking-widest mb-1.5 md:mb-2 text-xs md:text-sm flex items-center gap-2">
-                  <Star size={16} fill="#E60012" /> {t.location}
+              </section>
+
+              <aside className="min-w-0 xl:border-l xl:border-border xl:pl-12">
+                <div className="inline-flex items-center gap-2 bg-red-50 text-accent border border-red-100 px-3 md:px-4 py-1.5 md:py-2 rounded-full font-black text-xs md:text-sm uppercase tracking-widest mb-4 md:mb-6">
+                  <Info size={16} strokeWidth={3} /> {currentTeam.label}
                 </div>
-                <div className="text-base md:text-lg font-bold text-text-main">{t.locationVal}</div>
-              </div>
+                {currentTeam.title ? (
+                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-text-main mb-3 md:mb-4 tracking-tight">
+                    {currentTeam.title}
+                  </h2>
+                ) : null}
+                <p className="text-base md:text-xl text-text-dim font-bold leading-relaxed mb-6 md:mb-8">
+                  {currentTeam.intro}
+                </p>
+
+                <div className="space-y-4 md:space-y-5">
+                  {currentTeam.members.map((member) => (
+                    <div
+                      key={`${member.name}-${member.role}`}
+                      className="rounded-[1.5rem] md:rounded-[2rem] border border-border bg-[#F6F7F8] px-4 md:px-5 py-4 md:py-5 flex items-start gap-4 md:gap-5"
+                    >
+                      <div className="w-14 h-14 md:w-16 md:h-16 shrink-0 rounded-2xl border border-border bg-white overflow-hidden flex items-center justify-center text-lg md:text-xl font-black text-text-main shadow-sm">
+                        {member.image ? (
+                          <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
+                        ) : (
+                          member.avatar
+                        )}
+                      </div>
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-2">
+                          <div className="text-xl md:text-2xl font-black text-text-main leading-none">{member.name}</div>
+                          <span className="px-2.5 py-1 rounded-full border border-red-100 bg-white text-[10px] md:text-xs font-black uppercase tracking-[0.18em] text-accent">
+                            {member.role}
+                          </span>
+                        </div>
+                        <p className="text-sm md:text-base font-bold leading-relaxed text-text-dim">{member.bio}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </aside>
             </div>
           </div>
         </motion.main>
@@ -492,14 +708,15 @@ export default function App() {
               <div className="text-base md:text-xl text-text-main font-bold space-y-4 md:space-y-6 max-w-3xl leading-relaxed">
                 <p>
                   {t.labD1_1}
-                  <span className="text-accent underline decoration-4 underline-offset-4">{t.labD1_hl}</span>
+                  {t.labD1_hl ? <span className="text-accent underline decoration-4 underline-offset-4">{t.labD1_hl}</span> : null}
                   {t.labD1_2}
                 </p>
                 <p>
                   {t.labD2_1}
-                  <span className="bg-accent text-white px-2 rounded-md mx-1">{t.labD2_hl}</span>
+                  {t.labD2_hl ? <span className="bg-accent text-white px-2 rounded-md mx-1">{t.labD2_hl}</span> : null}
                   {t.labD2_2}
                 </p>
+                {t.labD4 ? <p>{t.labD4}</p> : null}
                 <p className="text-text-dim leading-relaxed">{t.labD3}</p>
               </div>
               <div className="mt-10 md:mt-16 bg-bg-main p-6 md:p-8 rounded-[1.5rem] md:rounded-3xl border border-border max-w-3xl flex flex-col sm:flex-row gap-6 md:gap-8">
@@ -609,7 +826,7 @@ export default function App() {
                 <div className="p-5 md:p-8 lg:p-12 flex-1 flex flex-col justify-between shrink-0 overflow-y-auto">
                   <div>
                     <h1
-                      className="text-2xl md:text-4xl lg:text-5xl font-black text-text-main mb-2 md:mb-4 tracking-tight cursor-pointer inline-block hover:text-accent transition-colors"
+                      className="text-3xl md:text-5xl lg:text-7xl font-black text-text-main mb-2 md:mb-4 tracking-tight cursor-pointer inline-block hover:text-accent transition-colors"
                       onClick={() => {
                         setActiveGameId(game.id);
                         setView("detail");

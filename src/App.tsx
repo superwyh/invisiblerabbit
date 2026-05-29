@@ -53,10 +53,6 @@ interface LocaleCopy {
   labD2_2: string;
   labD4?: string;
   labD3: string;
-  goal1: string;
-  goal1Val: string;
-  goal2: string;
-  goal2Val: string;
   statusLabel: string;
   statusVal: string;
   platformLabel: string;
@@ -126,10 +122,6 @@ const DICT: Record<Language, LocaleCopy> = {
     labD2_2: "。我们会去试一些不那么常见的规则、结构和交互方式，也会去做一些看上去有点别扭、但做下去也许会长出新东西的点子。它们不一定每次都成功，也不一定每次都特别完整，但至少应该带来一点以前不太有的东西，哪怕只是一个新的感觉，一个让人记一下的瞬间，或者一个“原来还能这样”的念头。",
     labD4: "我们不是为了显得特别才去做这些东西，也不是为了怪而怪。我们只是觉得，游戏里总该留一点地方，给那些还没被做熟的想法。",
     labD3: "右侧是一些我做完的怪点子游戏。",
-    goal1: "Goal 01",
-    goal1Val: "做出值得亲手经历的瞬间。",
-    goal2: "Goal 02",
-    goal2Val: "把怪念头做成玩法。",
     statusLabel: "Current Status",
     statusVal: "开发中",
     platformLabel: "Target Platform",
@@ -141,10 +133,10 @@ const DICT: Record<Language, LocaleCopy> = {
     games: {
       "long-wait": {
         title: "久等了",
-        desc: "有些爱留在夏天，有些人停在昨天。记忆总会把人带回那个模糊又明亮的 2000 年。在现实与梦境交叠的裂缝中，你将穿行于两条交错的时间线之间，重新面对一段关于爱、遗憾与悔恨的往事。",
+        desc: "有些爱留在夏天，有些人停在昨天。记忆总会把人带回那个模糊又明亮的 2008 年。在现实与梦境交叠的裂缝中，你将穿行于两条交错的时间线之间，重新面对一段关于爱、遗憾与悔恨的往事。",
         detail: [
           "有些爱留在夏天，有些人停在昨天。",
-          "记忆总会在某个时刻，把人重新带回那个模糊又明亮的 2000 年。旧街道、旧电视、旧磁带，还有那些以为已经过去的人和事，其实一直都还留在时间里。",
+          "记忆总会在某个时刻，把人重新带回那个模糊又明亮的 2008 年。旧街道、旧电视、旧磁带，还有那些以为已经过去的人和事，其实一直都还留在时间里。",
           "在现实与梦境交叠的裂缝中，你将穿行于两条彼此交错的时间线之间，一点点拼出一段关于爱、遗憾与悔恨的往事。那些没说出口的话、没来得及做出的选择，以及从未真正放下的告别，都会在回望中重新浮现。",
           "这一次，你不只是回到过去，还要重新面对那段一直没过去的事。",
         ],
@@ -209,10 +201,6 @@ const DICT: Record<Language, LocaleCopy> = {
     labD2_hl: "an experience that used to be rare",
     labD2_2: ".",
     labD3: "On the right are some odd little games I have already made.",
-    goal1: "Goal 01",
-    goal1Val: "Make mechanics that have not yet been worn old.",
-    goal2: "Goal 02",
-    goal2Val: "Add a few new reference answers to the game industry.",
     statusLabel: "Current Status",
     statusVal: "In Development",
     platformLabel: "Platform",
@@ -224,10 +212,10 @@ const DICT: Record<Language, LocaleCopy> = {
     games: {
       "long-wait": {
         title: "Long Wait",
-        desc: "Some loves remain in summer, and some people remain in yesterday. Memory always leads us back to that blurred yet luminous year 2000. In the crack where reality and dreams overlap, make your choice and step into a story about memory, longing, and reunion.",
+        desc: "Some loves remain in summer, and some people remain in yesterday. Memory always leads us back to that blurred yet luminous year 2008. In the crack where reality and dreams overlap, make your choice and step into a story about memory, longing, and reunion.",
         status: "In Development",
         platform: "Steam / Switch",
-        tags: ["Millennium", "Memory", "TRPG"],
+        tags: ["Memory", "TRPG"],
       },
       "invisible-room": {
         title: "Invisible Room",
@@ -292,10 +280,6 @@ const DICT: Record<Language, LocaleCopy> = {
     labD2_hl: "本当にこれまであまり見られなかった体験をつくれるかどうか",
     labD2_2: "です。",
     labD3: "右側は、私が作り終えた少し変なアイデアのゲームたちです。",
-    goal1: "Goal 01",
-    goal1Val: "まだ手垢のついていない仕組みを形にする。",
-    goal2: "Goal 02",
-    goal2Val: "ゲーム業界に新しい参照解を少し増やす。",
     statusLabel: "現在の状況",
     statusVal: "開発中",
     platformLabel: "対応プラットフォーム",
@@ -307,10 +291,10 @@ const DICT: Record<Language, LocaleCopy> = {
     games: {
       "long-wait": {
         title: "久等了",
-        desc: "夏に置き去りにされた愛もあれば、昨日に留まったままの人もいる。そして記憶は、いつも私たちをあのぼやけていて、それでいてまぶしい2000年へと連れ戻す。現実と夢が重なり合う時間の裂け目の中で選択を行い、記憶、懐かしさ、再会をめぐる物語へ足を踏み入れてください。",
+        desc: "夏に置き去りにされた愛もあれば、昨日に留まったままの人もいる。そして記憶は、いつも私たちをあのぼやけていて、それでいてまぶしい2008年へと連れ戻す。現実と夢が重なり合う時間の裂け目の中で選択を行い、記憶、懐かしさ、再会をめぐる物語へ足を踏み入れてください。",
         status: "開発中",
         platform: "Steam / Switch",
-        tags: ["ミレニアム", "記憶", "TRPG"],
+        tags: ["記憶", "TRPG"],
       },
       "invisible-room": {
         title: "見えない部屋",
@@ -375,10 +359,6 @@ const DICT: Record<Language, LocaleCopy> = {
     labD2_hl: "정말로 예전에는 드물었던 경험을 만들어 낼 수 있는가",
     labD2_2: "입니다.",
     labD3: "오른쪽은 제가 완성한 조금 괴상한 아이디어 게임들입니다.",
-    goal1: "Goal 01",
-    goal1Val: "아직 낡아지지 않은 메커니즘을 실제로 만들어 낸다.",
-    goal2: "Goal 02",
-    goal2Val: "게임 업계에 새로운 참고 답안을 조금 더 보탠다.",
     statusLabel: "현재 상태",
     statusVal: "개발 중",
     platformLabel: "플랫폼",
@@ -390,10 +370,10 @@ const DICT: Record<Language, LocaleCopy> = {
     games: {
       "long-wait": {
         title: "久等了",
-        desc: "어떤 사랑은 여름에 남고, 어떤 사람은 어제에 머뭅니다. 그리고 기억은 언제나 우리를 흐릿하면서도 밝게 빛나던 2000년으로 데려갑니다. 현실과 꿈이 겹쳐지는 시간의 틈에서 당신의 선택을 내리고, 기억과 그리움, 재회를 둘러싼 이야기 속으로 들어가세요.",
+        desc: "어떤 사랑은 여름에 남고, 어떤 사람은 어제에 머뭅니다. 그리고 기억은 언제나 우리를 흐릿하면서도 밝게 빛나던 2008년으로 데려갑니다. 현실과 꿈이 겹쳐지는 시간의 틈에서 당신의 선택을 내리고, 기억과 그리움, 재회를 둘러싼 이야기 속으로 들어가세요.",
         status: "개발 중",
         platform: "Steam / Switch",
-        tags: ["밀레니엄", "기억", "TRPG"],
+        tags: ["기억", "TRPG"],
       },
       "invisible-room": {
         title: "보이지 않는 방",
@@ -442,8 +422,8 @@ const GAME_METADATA: GameMetadata[] = [
   {
     id: "long-wait",
     category: "formal",
-    tags: ["千禧年", "回忆", "TRPG"],
-    image: "/IMG/long-wait.jpg",
+    tags: ["回忆", "TRPG"],
+    image: "/IMG/jiudengle.jpg",
     accent: "#E60012",
   },
   {
@@ -718,17 +698,6 @@ export default function App() {
                 </p>
                 {t.labD4 ? <p>{t.labD4}</p> : null}
                 <p className="text-text-dim leading-relaxed">{t.labD3}</p>
-              </div>
-              <div className="mt-10 md:mt-16 bg-bg-main p-6 md:p-8 rounded-[1.5rem] md:rounded-3xl border border-border max-w-3xl flex flex-col sm:flex-row gap-6 md:gap-8">
-                <div className="flex-1">
-                  <div className="text-accent font-black uppercase tracking-widest text-[10px] md:text-xs mb-2">{t.goal1}</div>
-                  <div className="text-text-main font-black text-base md:text-lg">{t.goal1Val}</div>
-                </div>
-                <div className="hidden sm:block w-px bg-border my-2" />
-                <div className="flex-1">
-                  <div className="text-accent font-black uppercase tracking-widest text-[10px] md:text-xs mb-2">{t.goal2}</div>
-                  <div className="text-text-main font-black text-base md:text-lg">{t.goal2Val}</div>
-                </div>
               </div>
             </div>
           </div>

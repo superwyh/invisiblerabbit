@@ -134,12 +134,20 @@ const DICT: Record<Language, LocaleCopy> = {
     games: {
       "long-wait": {
         title: "久等了",
-        desc: "有些爱留在夏天，有些人停在昨天。记忆总会把人带回那个模糊又明亮的 2008 年。在现实与梦境交叠的裂缝中，你将穿行于两条交错的时间线之间，重新面对一段关于爱、遗憾与悔恨的往事。",
+        desc: "记忆总会把人带回那个模糊又明亮的 2008 年。在现实与梦境交叠的裂缝中，你将穿行于两条交错的时间线之间，重新面对一段关于爱、遗憾与悔恨的往事。",
         detail: [
-          "有些爱留在夏天，有些人停在昨天。",
-          "记忆总会在某个时刻，把人重新带回那个模糊又明亮的 2008 年。旧街道、旧电视、旧磁带，还有那些以为已经过去的人和事，其实一直都还留在时间里。",
-          "在现实与梦境交叠的裂缝中，你将穿行于两条彼此交错的时间线之间，一点点拼出一段关于爱、遗憾与悔恨的往事。那些没说出口的话、没来得及做出的选择，以及从未真正放下的告别，都会在回望中重新浮现。",
-          "这一次，你不只是回到过去，还要重新面对那段一直没过去的事。",
+          "后来我终于明白，\n时间不是流逝。",
+          "时间是——\n有些东西\n再也不会回来。",
+          "是小时候的夏天，\n风扇吹着作业本，\n电视里播着已经没人记得的歌。",
+          "是某个人站在站台，\n挥了挥手，\n你却不知道\n那就是最后一面。",
+          "年轻时总觉得\n未来很慢。",
+          "后来才发现，\n一年快得\n像翻过一张纸。",
+          "父母开始变老，\n朋友渐渐失散，\n连镜子里的自己\n也越来越陌生。",
+          "可时间从不说话。",
+          "它只是安静地\n把少年变成大人，\n把理想变成回忆，\n把“总有一天”\n变成“如果当时”。",
+          "直到某个深夜，\n你忽然停下来，\n听见风穿过城市。",
+          "听见那些\n已经过去很多年的人和事，\n隔着漫长岁月，\n轻轻对你说：",
+          "——久等了。",
         ],
       },
       "invisible-room": {
@@ -710,15 +718,16 @@ export default function App() {
     if (view === "detail" && selectedGame) {
       const selectedGameLoc = t.games[selectedGame.id];
       const detailParagraphs = selectedGameLoc.detail ?? [selectedGameLoc.desc];
+      const isPoemDetail = selectedGame.id === "long-wait" && lang === "zh";
 
       return (
         <motion.main
           key="detail-view"
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="w-full md:flex-1 p-4 md:p-8 lg:p-12 md:overflow-y-auto bg-bg-main shrink-0 flex flex-col min-h-max"
+          className="w-full md:flex-1 p-4 md:p-8 lg:p-12 overflow-y-auto bg-bg-main shrink-0 flex flex-col min-h-max md:min-h-0 md:h-full"
         >
-          <Card type="dashed" className="app-panel app-detail-card p-0 overflow-hidden flex-1 flex flex-col relative shrink-0">
+          <Card type="dashed" className="app-panel app-detail-card p-0 overflow-hidden min-h-full flex flex-col relative shrink-0">
             <div className="absolute top-4 left-4 md:top-6 md:left-6 z-10">
               <Button
                 onClick={() => setView("home")}
@@ -743,9 +752,9 @@ export default function App() {
                   </span>
                 ))}
               </div>
-              <div className="max-w-3xl mb-8 md:mb-12 space-y-4 md:space-y-6">
+              <div className={isPoemDetail ? "app-poem" : "max-w-3xl mb-8 md:mb-12 space-y-4 md:space-y-6"}>
                 {detailParagraphs.map((paragraph) => (
-                  <p key={paragraph} className="text-base md:text-xl text-text-main font-bold leading-relaxed">
+                  <p key={paragraph} className={isPoemDetail && paragraph === "——久等了。" ? "app-poem-ending" : "text-base md:text-xl text-text-main font-bold leading-relaxed"}>
                     {paragraph}
                   </p>
                 ))}

@@ -138,6 +138,89 @@ button[class*="animal-btn-primary"]:not(.app-nav-button):not(.app-back-button):a
   }
 }
 
+.app-poem {
+  max-width: 560px;
+  margin-bottom: 32px;
+  color: #20242a;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.86;
+  letter-spacing: 0;
+}
+
+.app-poem p {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.app-poem p + p {
+  margin-top: 16px;
+}
+
+.app-poem .app-poem-ending {
+  color: #2f7dd1;
+  font-size: 18px;
+  font-weight: 900;
+  text-align: right;
+  padding-top: 4px;
+}
+
+@media (min-width: 768px) {
+  .app-poem {
+    width: 100%;
+    max-width: none;
+    height: clamp(340px, calc(100dvh - 520px), 500px);
+    margin-bottom: 48px;
+    padding: 4px 4px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    font-size: 18px;
+    line-height: 2;
+    overscroll-behavior-x: contain;
+  }
+
+  .app-poem p {
+    flex: 0 0 auto;
+    height: 100%;
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+  }
+
+  .app-poem p + p {
+    margin-top: 0;
+  }
+
+  .app-poem .app-poem-ending {
+    font-size: 22px;
+    text-align: start;
+    padding-top: 0;
+  }
+
+  .app-poem::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .app-poem::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .app-poem::-webkit-scrollbar-thumb {
+    background: #d8dde3;
+    border-radius: 999px;
+  }
+
+  .app-poem::-webkit-scrollbar-thumb:hover {
+    background: #626c76;
+  }
+}
+
 .app-nav-button {
   width: 46px !important;
   height: 46px !important;

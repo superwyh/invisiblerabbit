@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { useState } from "react";
-import { ArrowLeft, ExternalLink, FlaskConical, Globe, Home, Info, Play, Star } from "lucide-react";
+import { ArrowLeft, ExternalLink, FlaskConical, Home, Info, Play, Star } from "lucide-react";
+import { Button, Card, Cursor, Divider, Footer, Icon, Select } from "animal-island-ui";
 
 type Language = "zh" | "en" | "ja" | "ko";
 type GameId = "long-wait" | "invisible-room" | "key-hero" | "fight-with-keys";
@@ -449,6 +450,13 @@ const GAME_METADATA: GameMetadata[] = [
   },
 ];
 
+const LANGUAGE_OPTIONS = [
+  { key: "zh", label: "中文" },
+  { key: "en", label: "English" },
+  { key: "ja", label: "日本語" },
+  { key: "ko", label: "한국어" },
+];
+
 export default function App() {
   const [view, setView] = useState<"home" | "about" | "detail" | "lab">("home");
   const [activeGameId, setActiveGameId] = useState<GameId | null>(null);
@@ -574,12 +582,6 @@ export default function App() {
   } satisfies Record<Language, { label: string; title: string; intro: string; members: TeamMemberCopy[] }>;
   const currentTeam = localizedTeam[lang];
 
-  const toggleLang = () => {
-    const sequence: Language[] = ["zh", "en", "ja", "ko"];
-    const currentIndex = sequence.indexOf(lang);
-    setLang(sequence[(currentIndex + 1) % sequence.length]);
-  };
-
   const renderContent = () => {
     if (view === "about") {
       return (
@@ -588,11 +590,11 @@ export default function App() {
           animate={{ opacity: 1, y: 0 }}
           className="w-full md:flex-1 p-4 md:p-8 lg:p-12 md:overflow-y-auto bg-bg-main shrink-0 flex flex-col min-h-max"
         >
-          <div className="bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-border p-6 md:p-12 flex-1 shrink-0 relative overflow-hidden">
+          <Card type="dashed" className="app-panel p-6 md:p-12 flex-1 shrink-0 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-accent/4 rounded-full blur-3xl -translate-y-1/3 translate-x-1/3 pointer-events-none" />
-            <div className="relative z-10 grid grid-cols-1 xl:grid-cols-[minmax(0,1.12fr)_minmax(360px,0.88fr)] gap-10 md:gap-12 xl:gap-16">
+            <div className="app-copy-inset relative z-10 grid grid-cols-1 xl:grid-cols-[minmax(0,1.12fr)_minmax(360px,0.88fr)] gap-10 md:gap-12 xl:gap-16">
               <section className="min-w-0">
-                <div className="inline-block bg-blue-100 text-blue-600 px-3 md:px-4 py-1.5 md:py-2 rounded-full font-black text-xs md:text-sm uppercase tracking-widest mb-4 md:mb-6 self-start">
+                <div className="app-kicker inline-block px-3 md:px-4 py-1.5 md:py-2 rounded-full font-black text-xs md:text-sm uppercase tracking-widest mb-4 md:mb-6 self-start">
                   {t.studioProfile}
                 </div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-text-main mb-6 md:mb-8">{t.wePlayTitle}</h1>
@@ -612,13 +614,13 @@ export default function App() {
                 <div className="mt-8 md:mt-16 grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 border-t-4 border-bg-main pt-8 md:pt-12 max-w-2xl">
                   <div>
                     <div className="text-accent font-black uppercase tracking-widest mb-1.5 md:mb-2 text-xs md:text-sm flex items-center gap-2">
-                      <Star size={16} fill="#E60012" /> {t.philosophy}
+                      <Star size={16} color="#B88312" fill="#F6C84C" /> {t.philosophy}
                     </div>
                     <div className="text-base md:text-lg font-bold text-text-main">{t.philosophyVal}</div>
                   </div>
                   <div>
                     <div className="text-accent font-black uppercase tracking-widest mb-1.5 md:mb-2 text-xs md:text-sm flex items-center gap-2">
-                      <Star size={16} fill="#E60012" /> {t.location}
+                      <Star size={16} color="#B88312" fill="#F6C84C" /> {t.location}
                     </div>
                     <div className="text-base md:text-lg font-bold text-text-main">{t.locationVal}</div>
                   </div>
@@ -626,7 +628,7 @@ export default function App() {
               </section>
 
               <aside className="min-w-0 xl:border-l xl:border-border xl:pl-12">
-                <div className="inline-flex items-center gap-2 bg-red-50 text-accent border border-red-100 px-3 md:px-4 py-1.5 md:py-2 rounded-full font-black text-xs md:text-sm uppercase tracking-widest mb-4 md:mb-6">
+                <div className="app-kicker inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full font-black text-xs md:text-sm uppercase tracking-widest mb-4 md:mb-6">
                   <Info size={16} strokeWidth={3} /> {currentTeam.label}
                 </div>
                 {currentTeam.title ? (
@@ -642,7 +644,7 @@ export default function App() {
                   {currentTeam.members.map((member) => (
                     <div
                       key={`${member.name}-${member.role}`}
-                      className="rounded-[1.5rem] md:rounded-[2rem] border border-border bg-[#F6F7F8] px-4 md:px-5 py-4 md:py-5 flex items-start gap-4 md:gap-5"
+                      className="rounded-[1.5rem] md:rounded-[2rem] border border-border bg-white px-4 md:px-5 py-4 md:py-5 flex items-start gap-4 md:gap-5"
                     >
                       <div className="w-14 h-14 md:w-16 md:h-16 shrink-0 rounded-2xl border border-border bg-white overflow-hidden flex items-center justify-center text-lg md:text-xl font-black text-text-main shadow-sm">
                         {member.image ? (
@@ -654,7 +656,7 @@ export default function App() {
                       <div className="min-w-0">
                         <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-2">
                           <div className="text-xl md:text-2xl font-black text-text-main leading-none">{member.name}</div>
-                          <span className="px-2.5 py-1 rounded-full border border-red-100 bg-white text-[10px] md:text-xs font-black uppercase tracking-[0.18em] text-accent">
+                          <span className="app-mini-badge px-2.5 py-1 rounded-full text-[10px] md:text-xs font-black uppercase tracking-[0.18em]">
                             {member.role}
                           </span>
                         </div>
@@ -665,7 +667,7 @@ export default function App() {
                 </div>
               </aside>
             </div>
-          </div>
+          </Card>
         </motion.main>
       );
     }
@@ -678,10 +680,10 @@ export default function App() {
           animate={{ opacity: 1, scale: 1 }}
           className="w-full md:flex-1 p-4 md:p-8 lg:p-12 md:overflow-y-auto bg-bg-main shrink-0 flex flex-col min-h-max"
         >
-          <div className="bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-border p-6 md:p-12 flex-1 flex flex-col shrink-0 relative overflow-hidden">
+          <Card type="dashed" className="app-panel p-6 md:p-12 flex-1 flex flex-col shrink-0 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-accent/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-            <div className="relative z-10">
-              <div className="inline-flex items-center gap-2 bg-red-50 text-accent border border-red-100 px-3 md:px-4 py-1.5 md:py-2 rounded-full font-black text-xs md:text-sm uppercase tracking-widest mb-4 md:mb-6">
+            <div className="app-copy-inset relative z-10">
+              <div className="app-kicker inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full font-black text-xs md:text-sm uppercase tracking-widest mb-4 md:mb-6">
                 <FlaskConical size={16} strokeWidth={3} /> {t.labHeroPrefix}
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-text-main mb-6 md:mb-8 tracking-tight">{t.labHeroTitle}</h1>
@@ -700,7 +702,7 @@ export default function App() {
                 <p className="text-text-dim leading-relaxed">{t.labD3}</p>
               </div>
             </div>
-          </div>
+          </Card>
         </motion.main>
       );
     }
@@ -716,14 +718,17 @@ export default function App() {
           animate={{ opacity: 1, scale: 1 }}
           className="w-full md:flex-1 p-4 md:p-8 lg:p-12 md:overflow-y-auto bg-bg-main shrink-0 flex flex-col min-h-max"
         >
-          <div className="bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-border overflow-hidden flex-1 flex flex-col relative shrink-0">
+          <Card type="dashed" className="app-panel app-detail-card p-0 overflow-hidden flex-1 flex flex-col relative shrink-0">
             <div className="absolute top-4 left-4 md:top-6 md:left-6 z-10">
-              <button
+              <Button
                 onClick={() => setView("home")}
-                className="bg-white/90 backdrop-blur-md shadow-md hover:scale-105 transition-transform text-accent px-4 md:px-6 py-2 md:py-3 rounded-full font-black flex items-center gap-1.5 md:gap-2 text-xs md:text-sm uppercase border border-border"
+                type="default"
+                size="middle"
+                icon={<ArrowLeft size={18} strokeWidth={3} className="w-4 h-4 md:w-5 md:h-5" />}
+                className="app-back-button"
               >
-                <ArrowLeft size={18} strokeWidth={3} className="w-4 h-4 md:w-5 md:h-5" /> {t.back}
-              </button>
+                {t.back}
+              </Button>
             </div>
             <div className="h-56 md:h-72 lg:h-[400px] w-full relative bg-dark border-b border-border">
               <img src={selectedGame.image} alt={selectedGameLoc.title} className="w-full h-full object-cover opacity-90" referrerPolicy="no-referrer" />
@@ -759,29 +764,29 @@ export default function App() {
               </div>
 
               {selectedGameLoc.link ? (
-                <a
-                  href={selectedGameLoc.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-6 inline-flex items-center gap-2 bg-accent text-white px-5 md:px-6 py-3 rounded-full font-black text-xs md:text-sm uppercase tracking-widest shadow-[0_4px_12px_rgba(230,0,18,0.3)] hover:scale-105 hover:bg-red-600 transition-all"
+                <Button
+                  onClick={() => window.open(selectedGameLoc.link, "_blank", "noreferrer")}
+                  type="primary"
+                  size="large"
+                  icon={<ExternalLink size={16} />}
+                  className="mt-6"
                 >
-                  <ExternalLink size={16} />
                   {selectedGameLoc.linkLabel ?? "Link"}
-                </a>
+                </Button>
               ) : null}
             </div>
-          </div>
+          </Card>
         </motion.main>
       );
     }
 
     return (
-      <main className="w-full shrink-0 min-h-[75dvh] md:min-h-0 md:flex-1 flex overflow-x-auto overflow-y-hidden snap-x snap-mandatory scrollbar-hide bg-bg-main relative shadow-[0_4px_24px_rgba(0,0,0,0.02)] md:shadow-none z-10 md:z-auto">
+      <main className="app-home-track w-full shrink-0 min-h-[75dvh] md:min-h-0 md:flex-1 flex overflow-x-auto overflow-y-hidden snap-x snap-mandatory scrollbar-hide bg-bg-main relative shadow-[0_4px_24px_rgba(0,0,0,0.02)] md:shadow-none z-10 md:z-auto">
         {formalGames.map((game) => {
           const gameLoc = t.games[game.id];
           return (
-            <section key={game.id} className="min-w-full h-full p-4 md:p-8 lg:p-12 snap-center flex flex-col justify-center">
-              <div className="bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-border h-full overflow-hidden flex flex-col relative group">
+            <section key={game.id} className="app-game-slide w-full max-w-full shrink-0 h-full p-4 md:p-8 lg:p-12 snap-center flex flex-col justify-center">
+              <Card type="dashed" className="app-panel app-home-card p-0 h-full overflow-hidden flex flex-col relative group">
                 <div
                   className="h-[45%] md:h-[55%] lg:h-[60%] w-full relative overflow-hidden bg-dark cursor-pointer shrink-0 border-b border-border"
                   onClick={() => {
@@ -808,15 +813,17 @@ export default function App() {
                     </p>
                   </div>
                   <div className="flex flex-wrap items-center gap-3 md:gap-6 mt-4 md:mt-6 shrink-0">
-                    <button
+                    <Button
                       onClick={() => {
                         setActiveGameId(game.id);
                         setView("detail");
                       }}
-                      className="bg-accent text-white px-5 md:px-8 py-2.5 md:py-4 rounded-full font-black text-xs md:text-lg shadow-[0_4px_12px_rgba(230,0,18,0.3)] hover:scale-105 hover:bg-red-600 transition-all flex items-center gap-1.5 md:gap-2 w-max"
+                      type="primary"
+                      size="large"
+                      icon={<Play fill="currentColor" size={18} className="w-4 h-4 md:w-5 md:h-5" />}
                     >
-                      <Play fill="white" size={18} className="w-4 h-4 md:w-5 md:h-5" /> {t.learnMore}
-                    </button>
+                      {t.learnMore}
+                    </Button>
                     <div className="flex flex-wrap gap-2">
                       {(gameLoc.tags ?? game.tags).map((tag) => (
                         <span key={tag} className="text-[9px] md:text-xs font-bold text-text-dim bg-bg-main px-3 md:px-4 py-1 md:py-2 rounded-full border border-border hidden sm:inline-block">
@@ -826,7 +833,7 @@ export default function App() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </Card>
             </section>
           );
         })}
@@ -835,45 +842,50 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col-reverse md:flex-row h-[100dvh] w-screen bg-bg-main text-text-main overflow-hidden selection:bg-accent selection:text-white">
-      <aside className="w-full md:w-20 lg:w-28 h-[72px] md:h-full bg-white/90 backdrop-blur-md md:bg-white border-t md:border-t-0 md:border-r border-border shrink-0 py-2 md:py-8 lg:py-10 px-6 md:px-0 flex flex-row md:flex-col justify-between items-center z-50 rounded-t-3xl md:rounded-none shadow-[0_-4px_24px_rgba(0,0,0,0.05)] md:shadow-none pb-safe">
-        <nav className="flex flex-row md:flex-col gap-6 md:gap-4 flex-1 md:w-full md:px-4 justify-start md:justify-center items-center pt-0 md:pt-4">
-          <button
+    <Cursor>
+      <div className="flex flex-col-reverse md:flex-row h-[100dvh] w-screen bg-bg-main text-text-main overflow-hidden selection:bg-accent selection:text-white">
+      <aside className="w-full md:w-20 lg:w-28 h-[72px] md:h-full bg-white/90 backdrop-blur-md md:bg-white border-t md:border-t-0 md:border-r border-border shrink-0 py-2 md:py-8 lg:py-10 px-4 sm:px-6 md:px-0 flex flex-row md:flex-col justify-between items-center z-50 rounded-t-3xl md:rounded-none shadow-[0_-4px_24px_rgba(0,0,0,0.05)] md:shadow-none pb-safe">
+        <nav className="flex flex-row md:flex-col gap-3 sm:gap-5 md:gap-4 md:flex-1 md:w-full md:px-4 justify-start md:justify-center items-center pt-0 md:pt-4">
+          <Button
             onClick={() => setView("home")}
-            className={`w-12 h-12 md:w-full md:aspect-square rounded-[1.25rem] flex items-center justify-center transition-all ${view === "home" ? "bg-bg-main text-accent shadow-inner border border-border" : "text-text-dim border border-transparent hover:bg-bg-main hover:text-text-main"}`}
+            type={view === "home" ? "primary" : "text"}
+            size="large"
+            className={`app-nav-button ${view === "home" ? "app-nav-button-active" : ""}`}
             title="Home"
           >
             <Home size={24} strokeWidth={view === "home" ? 3 : 2.5} className="w-6 h-6 md:w-7 md:h-7" />
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => setView("lab")}
-            className={`w-12 h-12 md:w-full md:aspect-square rounded-[1.25rem] flex items-center justify-center transition-all ${view === "lab" ? "bg-bg-main text-accent shadow-inner border border-border" : "text-text-dim border border-transparent hover:bg-bg-main hover:text-text-main"}`}
+            type={view === "lab" ? "primary" : "text"}
+            size="large"
+            className={`app-nav-button ${view === "lab" ? "app-nav-button-active" : ""}`}
             title="Lab"
           >
             <FlaskConical size={24} strokeWidth={view === "lab" ? 3 : 2.5} className="w-6 h-6 md:w-7 md:h-7" />
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => setView("about")}
-            className={`w-12 h-12 md:w-full md:aspect-square rounded-[1.25rem] flex items-center justify-center transition-all ${view === "about" ? "bg-bg-main text-accent shadow-inner border border-border" : "text-text-dim border border-transparent hover:bg-bg-main hover:text-text-main"}`}
+            type={view === "about" ? "primary" : "text"}
+            size="large"
+            className={`app-nav-button ${view === "about" ? "app-nav-button-active" : ""}`}
             title="About"
           >
             <Info size={24} strokeWidth={view === "about" ? 3 : 2.5} className="w-6 h-6 md:w-7 md:h-7" />
-          </button>
+          </Button>
         </nav>
 
-        <div className="flex flex-row md:flex-col items-center gap-3 md:gap-4 mt-0 md:mt-auto">
-          <button
-            onClick={toggleLang}
-            className="w-9 h-9 md:w-12 md:h-12 shrink-0 rounded-full border-2 border-transparent bg-transparent hover:bg-bg-main flex items-center justify-center text-text-dim hover:text-accent transition-colors"
-            title="Toggle Language"
-          >
-            <div className="flex flex-col items-center justify-center leading-none">
-              <Globe size={18} className="w-4 h-4 md:w-5 md:h-5 mb-0.5" />
-              <span className="font-black text-[8px] md:text-[9px] uppercase">{t.langLabel}</span>
-            </div>
-          </button>
+        <div className="flex flex-row md:flex-col items-center gap-2 sm:gap-3 md:gap-4 mt-0 md:mt-auto">
+          <div className="app-language-select" title="Language">
+            <Select
+              value={lang}
+              onChange={(key) => setLang(key as Language)}
+              options={LANGUAGE_OPTIONS}
+              placeholder={t.langLabel}
+            />
+          </div>
 
-          <div className="w-9 h-9 md:w-12 md:h-12 shrink-0 rounded-full border-2 border-border bg-bg-main flex items-center justify-center text-accent hover:border-accent cursor-pointer transition-colors" title="User Profile">
+          <div className="app-player-badge w-9 h-9 md:w-12 md:h-12 shrink-0 rounded-full border-2 flex items-center justify-center cursor-pointer transition-colors" title="User Profile">
             <span className="font-black text-[10px] md:text-sm">P1</span>
           </div>
         </div>
@@ -883,15 +895,16 @@ export default function App() {
         {renderContent()}
 
         <section
-          className={`w-full md:w-[320px] lg:w-[380px] bg-white border-t md:border-t-0 md:border-l border-border p-6 md:p-8 lg:p-10 flex flex-col md:transition-transform md:duration-500 z-40 shrink-0
+          className={`app-side-panel w-full md:w-[320px] lg:w-[380px] bg-white border-t md:border-t-0 md:border-l border-border p-6 md:p-8 lg:p-10 flex flex-col md:transition-transform md:duration-500 z-40 shrink-0
           ${view === "about" ? "hidden md:flex md:translate-x-full md:absolute md:right-0 md:h-full md:shadow-none md:pointer-events-none" : "flex relative md:shadow-[-4px_0_24px_rgba(0,0,0,0.02)] z-0"}
         `}
         >
           <div className="mb-5 md:mb-8">
             <h2 className="text-xl md:text-2xl lg:text-3xl font-black text-text-main flex items-center gap-2 md:gap-3">
-              <span className="text-accent animate-pulse">●</span> {t.labPanelTitle}
+              <Icon name="icon-diy" size={28} bounce /> {t.labPanelTitle}
             </h2>
             <span className="block text-[10px] md:text-sm text-text-dim font-bold mt-1 md:mt-2 uppercase tracking-widest">{t.labPanelSub}</span>
+            <Divider type="line-teal" className="my-4" />
           </div>
 
           <ul className="md:flex-1 flex flex-col space-y-3 md:space-y-4 md:overflow-y-auto scrollbar-hide pb-6 md:pb-10 pt-1 md:pt-2 px-1 md:-mx-2 md:px-2">
@@ -905,7 +918,7 @@ export default function App() {
                     setActiveGameId(game.id);
                     setView("detail");
                   }}
-                  className={`group rounded-[1.5rem] p-4 md:p-5 cursor-pointer transition-all border-2 shrink-0 ${activeGameId === game.id && view === "detail" ? "border-accent bg-red-50 shadow-md" : "border-border bg-[#F8F9FA] hover:border-accent hover:shadow-md hover:bg-white"}`}
+                  className={`group rounded-[1.5rem] p-4 md:p-5 cursor-pointer transition-all border-2 shrink-0 ${activeGameId === game.id && view === "detail" ? "border-accent bg-[#eaf4ff] shadow-md" : "border-border bg-white hover:border-accent hover:shadow-md hover:bg-[#f7fbff]"}`}
                 >
                   <div className="flex justify-between items-start mb-2 md:mb-3">
                     <div className="text-base md:text-xl font-black text-text-main group-hover:text-accent transition-colors leading-snug pr-2">{gameLoc.title}</div>
@@ -924,8 +937,10 @@ export default function App() {
               );
             })}
           </ul>
+          <Footer type="sea" className="app-side-footer" />
         </section>
       </div>
-    </div>
+      </div>
+    </Cursor>
   );
 }

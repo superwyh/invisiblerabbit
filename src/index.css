@@ -5,34 +5,34 @@
   --font-mono: Nunito, "Noto Sans SC", monospace;
   
   --color-accent: #2f7dd1;
-  --color-dark: #23364a;
-  --color-bg-main: #eef6ff;
-  --color-surface: #fbfdff;
-  --color-text-main: #2b3f55;
-  --color-text-dim: #6d7f90;
-  --color-border: #b8d4ef;
+  --color-dark: #14171a;
+  --color-bg-main: #f5f6f8;
+  --color-surface: #ffffff;
+  --color-text-main: #20242a;
+  --color-text-dim: #626c76;
+  --color-border: #d8dde3;
 }
 
 :root {
   --animal-primary-color: #2f7dd1;
-  --animal-primary-color-hover: #4f9ae4;
+  --animal-primary-color-hover: #3f8fe0;
   --animal-primary-color-active: #1f5fa8;
-  --animal-primary-color-bg: #eaf4ff;
+  --animal-primary-color-bg: #f5f6f8;
   --animal-success-color: #2f7dd1;
-  --animal-success-color-hover: #4f9ae4;
+  --animal-success-color-hover: #3f8fe0;
   --animal-success-color-active: #1f5fa8;
-  --animal-text-color: #2b3f55;
-  --animal-text-color-secondary: #6d7f90;
-  --animal-text-color-muted: #2b3f55;
-  --animal-border-color: #b8d4ef;
+  --animal-text-color: #20242a;
+  --animal-text-color-secondary: #626c76;
+  --animal-text-color-muted: #20242a;
+  --animal-border-color: #d8dde3;
   --animal-border-color-hover: #2f7dd1;
-  --animal-border-color-light: #d9eafb;
-  --animal-bg-color: #fbfdff;
-  --animal-bg-color-secondary: #eef6ff;
-  --animal-bg-color-disabled: #edf1f5;
-  --animal-shadow-sm: 0 2px 4px 0 rgba(35, 54, 74, 0.08);
-  --animal-shadow-base: 0 4px 12px 0 rgba(35, 54, 74, 0.12);
-  --animal-shadow-lg: 0 10px 28px 0 rgba(35, 54, 74, 0.16);
+  --animal-border-color-light: #eceff3;
+  --animal-bg-color: #ffffff;
+  --animal-bg-color-secondary: #f5f6f8;
+  --animal-bg-color-disabled: #eceff3;
+  --animal-shadow-sm: 0 2px 4px 0 rgba(20, 23, 26, 0.06);
+  --animal-shadow-base: 0 4px 12px 0 rgba(20, 23, 26, 0.1);
+  --animal-shadow-lg: 0 10px 28px 0 rgba(20, 23, 26, 0.14);
 }
 
 @layer base {
@@ -49,8 +49,8 @@ button[class*="animal-btn-primary"]:not(.app-nav-button):not(.app-back-button) {
 }
 
 button[class*="animal-btn-primary"]:not(.app-nav-button):not(.app-back-button):hover:not(:disabled) {
-  background: #4f9ae4 !important;
-  border-color: #4f9ae4 !important;
+  background: #3f8fe0 !important;
+  border-color: #3f8fe0 !important;
   box-shadow: 0 6px 0 #1f5fa8 !important;
 }
 
@@ -75,11 +75,11 @@ button[class*="animal-btn-primary"]:not(.app-nav-button):not(.app-back-button):a
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  background: #fbfdff !important;
+  background: #ffffff !important;
   border-radius: 28px 24px 32px 26px / 24px 30px 26px 32px !important;
-  border-color: #b8d4ef !important;
+  border-color: #d8dde3 !important;
   border-style: solid !important;
-  box-shadow: 0 8px 0 #cfe2f5, 0 18px 36px rgba(35, 54, 74, 0.12) !important;
+  box-shadow: 0 8px 0 #e2e6eb, 0 18px 36px rgba(20, 23, 26, 0.1) !important;
   cursor: default !important;
 }
 
@@ -144,14 +144,14 @@ button[class*="animal-btn-primary"]:not(.app-nav-button):not(.app-back-button):a
   min-width: 46px !important;
   padding: 0 !important;
   border-radius: 50% !important;
-  color: #2b3f55 !important;
+  color: #20242a !important;
 }
 
 .app-nav-button-active {
   color: #2f7dd1 !important;
-  background: #e8f3ff !important;
-  border-color: #b8d4ef !important;
-  box-shadow: 0 4px 0 #cfe2f5 !important;
+  background: #ffffff !important;
+  border-color: #d8dde3 !important;
+  box-shadow: 0 4px 0 #e2e6eb !important;
 }
 
 @media (min-width: 768px) {
@@ -173,8 +173,8 @@ button[class*="animal-btn-primary"]:not(.app-nav-button):not(.app-back-button):a
   justify-content: center !important;
   white-space: nowrap !important;
   line-height: 1 !important;
-  background: rgba(251, 253, 255, 0.94) !important;
-  border-color: #b8d4ef !important;
+  background: rgba(255, 255, 255, 0.94) !important;
+  border-color: #d8dde3 !important;
   backdrop-filter: blur(10px);
 }
 
@@ -218,10 +218,10 @@ button[class*="animal-btn-primary"]:not(.app-nav-button):not(.app-back-button):a
 .app-language-select [class*="trigger"] {
   width: 100% !important;
   min-width: 0 !important;
-  color: #2b3f55 !important;
-  background: #fbfdff !important;
-  border-color: #b8d4ef !important;
-  box-shadow: 0 3px 0 #cfe2f5 !important;
+  color: #20242a !important;
+  background: #ffffff !important;
+  border-color: #d8dde3 !important;
+  box-shadow: 0 3px 0 #e2e6eb !important;
 }
 
 .app-language-select [class*="dropdown"] {
@@ -236,14 +236,14 @@ button[class*="animal-btn-primary"]:not(.app-nav-button):not(.app-back-button):a
   margin: 0 !important;
   transform: none !important;
   overflow: visible !important;
-  color: #2b3f55 !important;
-  background: #eaf4ff !important;
-  border: 2px solid #b8d4ef !important;
-  box-shadow: 0 8px 0 #cfe2f5, 0 16px 30px rgba(35, 54, 74, 0.14) !important;
+  color: #20242a !important;
+  background: #ffffff !important;
+  border: 2px solid #d8dde3 !important;
+  box-shadow: 0 8px 0 #e2e6eb, 0 16px 30px rgba(20, 23, 26, 0.12) !important;
 }
 
 .app-language-select [class*="option"] {
-  color: #2b3f55 !important;
+  color: #20242a !important;
 }
 
 .app-language-select [class*="option"][class*="active"] {
@@ -252,27 +252,27 @@ button[class*="animal-btn-primary"]:not(.app-nav-button):not(.app-back-button):a
 
 .app-side-panel [class*="animal-line-teal"] {
   height: 4px !important;
-  background: linear-gradient(90deg, transparent 0%, #9bc8f3 14%, #2f7dd1 50%, #9bc8f3 86%, transparent 100%) !important;
+  background: linear-gradient(90deg, transparent 0%, #d8dde3 14%, #2f7dd1 50%, #d8dde3 86%, transparent 100%) !important;
   border-radius: 999px !important;
 }
 
 .app-kicker {
   color: #2f7dd1;
-  background: #eef7ff;
-  border: 1px solid #b8d4ef;
+  background: #ffffff;
+  border: 1px solid #d8dde3;
 }
 
 .app-mini-badge {
-  color: #2769af;
-  background: #eef7ff;
-  border: 1px solid #b8d4ef;
+  color: #2f7dd1;
+  background: #ffffff;
+  border: 1px solid #d8dde3;
 }
 
 .app-player-badge {
   color: #2f7dd1;
   background: #ffffff;
-  border-color: #9bc8f3;
-  box-shadow: 0 4px 0 #cfe2f5;
+  border-color: #d8dde3;
+  box-shadow: 0 4px 0 #e2e6eb;
 }
 
 .app-player-badge:hover {

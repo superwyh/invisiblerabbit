@@ -918,7 +918,7 @@ export default function App() {
                     setActiveGameId(game.id);
                     setView("detail");
                   }}
-                  className={`group rounded-[1.5rem] p-4 md:p-5 cursor-pointer transition-all border-2 shrink-0 ${activeGameId === game.id && view === "detail" ? "border-accent bg-[#eaf4ff] shadow-md" : "border-border bg-white hover:border-accent hover:shadow-md hover:bg-[#f7fbff]"}`}
+                  className={`group rounded-[1.5rem] p-4 md:p-5 cursor-pointer transition-all border-2 shrink-0 ${activeGameId === game.id && view === "detail" ? "border-accent bg-[#f8fafc] shadow-md" : "border-border bg-white hover:border-accent hover:shadow-md hover:bg-[#f8fafc]"}`}
                 >
                   <div className="flex justify-between items-start mb-2 md:mb-3">
                     <div className="text-base md:text-xl font-black text-text-main group-hover:text-accent transition-colors leading-snug pr-2">{gameLoc.title}</div>

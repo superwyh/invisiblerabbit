@@ -221,7 +221,21 @@ const DICT: Record<Language, LocaleCopy> = {
     games: {
       "long-wait": {
         title: "Long Wait",
-        desc: "Some loves remain in summer, and some people remain in yesterday. Memory always leads us back to that blurred yet luminous year 2008. In the crack where reality and dreams overlap, make your choice and step into a story about memory, longing, and reunion.",
+        desc: "Memory always carries people back to that blurred yet luminous year 2008. In the crack where reality and dreams overlap, you will pass between two intertwined timelines and face again a story about love, regret, and remorse.",
+        detail: [
+          "Later, I finally understood:\ntime is not passing.",
+          "Time is—\nsome things\nwill never return.",
+          "It is the summer of childhood,\nthe fan blowing over homework pages,\nand a song on TV no one remembers anymore.",
+          "It is someone standing on the platform,\nwaving once,\nwhile you did not know\nthat was the last time you would meet.",
+          "When we were young, we always thought\nthe future moved slowly.",
+          "Only later did I realize\nthat a year can pass\nlike turning a sheet of paper.",
+          "Parents begin to grow old,\nfriends slowly scatter,\nand even the person in the mirror\ngrows more and more unfamiliar.",
+          "But time never speaks.",
+          "It only quietly\nturns children into adults,\nturns ideals into memories,\nand turns “someday”\ninto “if only then.”",
+          "Until one late night,\nyou suddenly stop,\nand hear the wind passing through the city.",
+          "You hear those people and things\nfrom many years ago,\nacross the long years,\ngently say to you:",
+          "—Long Wait.",
+        ],
         status: "In Development",
         platform: "Steam / Switch",
         tags: ["Memory", "TRPG"],
@@ -300,7 +314,21 @@ const DICT: Record<Language, LocaleCopy> = {
     games: {
       "long-wait": {
         title: "久等了",
-        desc: "夏に置き去りにされた愛もあれば、昨日に留まったままの人もいる。そして記憶は、いつも私たちをあのぼやけていて、それでいてまぶしい2008年へと連れ戻す。現実と夢が重なり合う時間の裂け目の中で選択を行い、記憶、懐かしさ、再会をめぐる物語へ足を踏み入れてください。",
+        desc: "記憶はいつも人を、あのぼやけていて、それでいてまぶしい2008年へ連れ戻します。現実と夢が重なり合う裂け目の中で、あなたは交差する二つの時間軸を行き来し、愛と後悔、悔恨をめぐる過去にもう一度向き合うことになります。",
+        detail: [
+          "後になって、ようやくわかった。\n時間は流れていくものではない。",
+          "時間とは——\nあるものが\n二度と戻ってこないということ。",
+          "子どものころの夏。\n扇風機が宿題のノートを揺らし、\nテレビでは、もう誰も覚えていない歌が流れていた。",
+          "誰かが駅のホームに立ち、\n手を振った。\nけれどあなたは知らなかった。\nそれが最後の一度だったことを。",
+          "若いころはいつも\n未来はゆっくりだと思っていた。",
+          "後になって気づいた。\n一年は\n紙を一枚めくるように速いのだと。",
+          "両親は老いていき、\n友人たちは少しずつ離れ、\n鏡の中の自分さえ\nだんだん見知らぬ人になっていく。",
+          "けれど時間は何も言わない。",
+          "ただ静かに\n少年を大人に変え、\n理想を思い出に変え、\n「いつか」を\n「もしあの時」に変えていく。",
+          "ある深夜、\nあなたがふと立ち止まり、\n街を抜ける風の音を聞くまで。",
+          "聞こえてくる。\nもう何年も前に過ぎ去った人や出来事が、\n長い歳月の向こうから、\nそっとあなたに言う声が。",
+          "——お待たせ。",
+        ],
         status: "開発中",
         platform: "Steam / Switch",
         tags: ["記憶", "TRPG"],
@@ -379,7 +407,21 @@ const DICT: Record<Language, LocaleCopy> = {
     games: {
       "long-wait": {
         title: "久等了",
-        desc: "어떤 사랑은 여름에 남고, 어떤 사람은 어제에 머뭅니다. 그리고 기억은 언제나 우리를 흐릿하면서도 밝게 빛나던 2008년으로 데려갑니다. 현실과 꿈이 겹쳐지는 시간의 틈에서 당신의 선택을 내리고, 기억과 그리움, 재회를 둘러싼 이야기 속으로 들어가세요.",
+        desc: "기억은 언제나 사람을 흐릿하면서도 밝게 빛나던 2008년으로 데려갑니다. 현실과 꿈이 겹쳐지는 틈 속에서, 당신은 서로 교차하는 두 시간선을 지나 사랑과 아쉬움, 후회를 둘러싼 지난 일을 다시 마주하게 됩니다.",
+        detail: [
+          "나중에서야 나는 마침내 알았다.\n시간은 흘러가는 것이 아니라는 것을.",
+          "시간이란——\n어떤 것들이\n다시는 돌아오지 않는다는 것.",
+          "어린 시절의 여름,\n선풍기가 숙제 공책을 넘기고,\n텔레비전에서는 이제 아무도 기억하지 못하는 노래가 흘러나오던 때.",
+          "누군가가 플랫폼에 서서,\n손을 흔들었다.\n하지만 너는 몰랐다.\n그게 마지막 만남이었다는 것을.",
+          "젊었을 때는 늘\n미래가 아주 느리다고 생각했다.",
+          "나중에야 깨달았다.\n일 년은\n종이 한 장을 넘기듯 빠르다는 것을.",
+          "부모님은 늙어 가고,\n친구들은 조금씩 흩어지고,\n거울 속의 나마저도\n점점 낯설어졌다.",
+          "하지만 시간은 말하지 않는다.",
+          "그저 조용히\n소년을 어른으로 만들고,\n이상을 추억으로 만들고,\n‘언젠가’를\n‘그때 그랬더라면’으로 바꿀 뿐이다.",
+          "어느 깊은 밤,\n네가 문득 멈춰 서서,\n도시를 가로지르는 바람소리를 들을 때까지.",
+          "그때 너는 듣는다.\n이미 오래전에 지나간 사람과 일들이,\n긴 세월 너머에서,\n가만히 너에게 말하는 것을:",
+          "——오래 기다렸지.",
+        ],
         status: "개발 중",
         platform: "Steam / Switch",
         tags: ["기억", "TRPG"],
@@ -718,7 +760,7 @@ export default function App() {
     if (view === "detail" && selectedGame) {
       const selectedGameLoc = t.games[selectedGame.id];
       const detailParagraphs = selectedGameLoc.detail ?? [selectedGameLoc.desc];
-      const isPoemDetail = selectedGame.id === "long-wait" && lang === "zh";
+      const isPoemDetail = selectedGame.id === "long-wait";
 
       return (
         <motion.main
@@ -753,8 +795,8 @@ export default function App() {
                 ))}
               </div>
               <div className={isPoemDetail ? "app-poem" : "max-w-3xl mb-8 md:mb-12 space-y-4 md:space-y-6"}>
-                {detailParagraphs.map((paragraph) => (
-                  <p key={paragraph} className={isPoemDetail && paragraph === "——久等了。" ? "app-poem-ending" : "text-base md:text-xl text-text-main font-bold leading-relaxed"}>
+                {detailParagraphs.map((paragraph, index) => (
+                  <p key={paragraph} className={isPoemDetail && index === detailParagraphs.length - 1 ? "app-poem-ending" : "text-base md:text-xl text-text-main font-bold leading-relaxed"}>
                     {paragraph}
                   </p>
                 ))}

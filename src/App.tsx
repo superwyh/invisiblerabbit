@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { useState } from "react";
 import { ArrowLeft, ExternalLink, FlaskConical, Home, Info, Play, Star } from "lucide-react";
-import { Button, Card, Cursor, Divider, Footer, Icon, Select } from "animal-island-ui";
+import { Button, Card, Cursor, Divider, Icon, Select } from "animal-island-ui";
 
 type Language = "zh" | "en" | "ja" | "ko";
 type GameId = "long-wait" | "invisible-room" | "key-hero" | "fight-with-keys";
@@ -969,7 +969,7 @@ export default function App() {
                     setActiveGameId(game.id);
                     setView("detail");
                   }}
-                  className={`group rounded-[1.5rem] p-4 md:p-5 cursor-pointer transition-all border-2 shrink-0 ${activeGameId === game.id && view === "detail" ? "border-accent bg-[#f8fafc] shadow-md" : "border-border bg-white hover:border-accent hover:shadow-md hover:bg-[#f8fafc]"}`}
+                  className={`group rounded-[1.5rem] p-4 md:p-5 cursor-pointer transition-all border-2 shrink-0 ${activeGameId === game.id && view === "detail" ? "border-accent bg-[#fff5f5] shadow-md" : "border-border bg-white hover:border-accent hover:shadow-md hover:bg-[#fff5f5]"}`}
                 >
                   <div className="flex justify-between items-start mb-2 md:mb-3">
                     <div className="text-base md:text-xl font-black text-text-main group-hover:text-accent transition-colors leading-snug pr-2">{gameLoc.title}</div>
@@ -988,7 +988,6 @@ export default function App() {
               );
             })}
           </ul>
-          <Footer type="sea" className="app-side-footer" />
         </section>
       </div>
       </div>

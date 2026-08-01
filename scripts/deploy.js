@@ -63,8 +63,8 @@ console.log("Ensuring GitHub Pages files...");
 ensureDistMetaFiles();
 
 if (!isGitRepo()) {
-  console.log("No git repository detected. Build is ready in dist/ with CNAME and .nojekyll.");
-  process.exit(0);
+  console.error("No git repository detected. Deployment stopped before push.");
+  process.exit(1);
 }
 
 if (!hasOriginRemote()) {

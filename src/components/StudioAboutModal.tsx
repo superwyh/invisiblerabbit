@@ -107,7 +107,20 @@ export const StudioAboutModal: React.FC<StudioAboutModalProps> = ({
                   <img src={member.image} alt={member.name} className="h-14 w-14 shrink-0 rounded-md object-cover" />
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                      <h4 className="text-sm font-semibold text-zinc-900">{member.name}</h4>
+                      {member.url ? (
+                        <a
+                          href={member.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={playClickSound}
+                          className="inline-flex items-center gap-1 text-sm font-semibold text-zinc-900 underline underline-offset-4 hover:text-zinc-500 transition-colors"
+                        >
+                          {member.name}
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
+                      ) : (
+                        <h4 className="text-sm font-semibold text-zinc-900">{member.name}</h4>
+                      )}
                       <span className="text-xs text-zinc-400">{member.role}</span>
                     </div>
                     <p className="mt-1 text-xs leading-relaxed text-zinc-600">{member.bio}</p>

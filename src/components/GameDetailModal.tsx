@@ -46,8 +46,10 @@ export const GameDetailModal: React.FC<GameDetailModalProps> = ({
   const detailsToShow = lang === 'zh'
     ? game.detailsZh ?? game.details
     : localizedGame?.details ?? game.details;
-  const awardsToShow = localizedGame?.awards ?? game.awards;
-  const awardOrganizerToShow = localizedGame?.awardOrganizer ?? game.awardOrganizer;
+  const fallbackAwardGroups = game.awards?.length
+    ? [{ organizer: game.awardOrganizer ?? '', awards: game.awards }]
+    : [];
+  const awardGroups = localizedGame?.awardGroups ?? game.awardGroups ?? fallbackAwardGroups;
   const labels: Record<Language, { awards: string; organizer: string; close: string }> = {
     zh: { awards: '获奖', organizer: '主办方：', close: '关闭 (Esc)' },
     en: { awards: 'AWARDS', organizer: 'Organized by: ', close: 'Close (Esc)' },
@@ -128,23 +130,29 @@ export const GameDetailModal: React.FC<GameDetailModalProps> = ({
             </p>
           ))}
 
-          {awardsToShow && awardsToShow.length > 0 && (
+          {awardGroups.length > 0 && (
             <section className="pt-2 border-t border-zinc-100 space-y-2">
               <span className="text-[11px] font-mono-code text-zinc-400 uppercase tracking-wider block">
                 {labels[lang].awards}
               </span>
-              {awardOrganizerToShow && (
-                <p className="text-xs text-zinc-500">
-                  {labels[lang].organizer}{awardOrganizerToShow}
-                </p>
-              )}
-              <ul className="flex flex-wrap gap-2">
-                {awardsToShow.map((award) => (
-                  <li key={award} className="text-xs text-zinc-800 border border-zinc-200 rounded-full px-3 py-1">
-                    {award}
-                  </li>
+              <div className="space-y-3">
+                {awardGroups.map((group, index) => (
+                  <div key={`${group.organizer}-${group.awards.join('-')}`} className={index > 0 ? 'pt-3 border-t border-zinc-100' : ''}>
+                    {group.organizer && (
+                      <p className="text-xs text-zinc-500 mb-2">
+                        {labels[lang].organizer}{group.organizer}
+                      </p>
+                    )}
+                    <ul className="flex flex-wrap gap-2">
+                      {group.awards.map((award) => (
+                        <li key={award} className="text-xs text-zinc-800 border border-zinc-200 rounded-full px-3 py-1">
+                          {award}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </section>
           )}
 

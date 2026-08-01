@@ -44,16 +44,8 @@ export default function App() {
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="flex items-center justify-between"
+        className="flex items-center justify-end"
       >
-        <button
-          onClick={handleOpenAbout}
-          className="font-display text-base sm:text-lg tracking-[0.12em] font-bold text-zinc-500 hover:text-zinc-900 transition-colors uppercase cursor-pointer"
-          title={studioTitle[lang]}
-        >
-          {studioName}
-        </button>
-
         <button
           onClick={handleToggleLang}
           className="text-xs font-mono-code text-zinc-400 hover:text-zinc-900 transition-colors uppercase tracking-wider cursor-pointer"
@@ -64,6 +56,14 @@ export default function App() {
 
       {/* Main Content: Pure white clean list of Game Name + Release Year */}
       <main className="my-auto py-12 max-w-xl w-full mx-auto">
+        <button
+          onClick={handleOpenAbout}
+          className="mb-8 flex w-full items-center justify-center gap-2 font-display text-base sm:text-lg tracking-[0.12em] font-bold text-zinc-500 hover:text-zinc-900 transition-colors uppercase cursor-pointer"
+          title={studioTitle[lang]}
+        >
+          <img src="/IMG/logo.png" alt="" aria-hidden="true" className="h-5 w-auto shrink-0 sm:h-6" />
+          <span>{studioName}</span>
+        </button>
         <div className="space-y-5">
           {games.map((game, idx) => {
             const titleToShow = lang === 'zh'
@@ -82,9 +82,23 @@ export default function App() {
                 onClick={() => handleSelectGame(game)}
                 className="cursor-pointer group flex items-baseline justify-between py-1 transition-colors"
               >
-                <h2 className="font-display text-sm sm:text-base font-normal text-zinc-800 group-hover:text-zinc-400 transition-colors">
-                  {titleToShow}
-                </h2>
+                <div className="flex min-w-0 items-center gap-2.5">
+                  {game.icon ? (
+                    <img
+                      src={game.icon}
+                      alt=""
+                      aria-hidden="true"
+                      className="h-6 w-6 shrink-0 rounded-sm object-cover sm:h-7 sm:w-7"
+                    />
+                  ) : (
+                    <span aria-hidden="true" className="flex h-6 w-6 shrink-0 items-center justify-center text-lg sm:h-7 sm:w-7">
+                      {game.iconEmoji ?? '🎮'}
+                    </span>
+                  )}
+                  <h2 className="min-w-0 font-display text-sm sm:text-base font-normal text-zinc-800 group-hover:text-zinc-400 transition-colors">
+                    {titleToShow}
+                  </h2>
+                </div>
                 <span className="text-xs font-mono-code text-zinc-400 group-hover:text-zinc-300 transition-colors ml-4 shrink-0">
                   {game.releaseYear}
                 </span>

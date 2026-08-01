@@ -21,6 +21,12 @@ export interface LocalizedGameContent {
   details?: string[];
   awardOrganizer?: string;
   awards?: string[];
+  awardGroups?: AwardGroup[];
+}
+
+export interface AwardGroup {
+  organizer: string;
+  awards: string[];
 }
 
 export interface LocalizedStudioContent {
@@ -35,6 +41,7 @@ export interface TeamMember {
   role: string;
   bio: string;
   image: string;
+  url?: string;
 }
 
 export interface TeamContent {
@@ -60,6 +67,8 @@ export interface GameItem {
   status: 'RELEASED' | 'IN_DEVELOPMENT' | 'EARLY_ACCESS' | 'ANNOUNCED';
   coverImage: string;
   bannerImage: string;
+  icon?: string;
+  iconEmoji?: string;
   screenshots: GameScreenshot[];
   videoUrl?: string; // e.g. YouTube / MP4 embed
   links: GameLink[];
@@ -68,6 +77,7 @@ export interface GameItem {
   engine?: string;
   awardOrganizer?: string;
   awards?: string[];
+  awardGroups?: AwardGroup[];
   locales?: Partial<Record<Language, LocalizedGameContent>>;
   hasWebDemo?: boolean;
 }

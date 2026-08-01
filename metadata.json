@@ -1,6 +1,6 @@
 {
-  "name": "Echo Game Studio",
-  "description": "A distinctive game studio portfolio featuring experimental gameplay labs and formal flagships.",
+  "name": "不见兔 · Invisible Rabbit",
+  "description": "不见兔独立游戏工作室首页，展示作品、介绍与 Steam 链接。",
   "requestFramePermissions": [],
-  "majorCapabilities": []
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

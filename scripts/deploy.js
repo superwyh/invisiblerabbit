@@ -11,25 +11,17 @@ const distNoJekyll = path.join(distDir, ".nojekyll");
 const shellCommand = process.platform === "win32" ? process.env.ComSpec || "cmd.exe" : "sh";
 
 function run(command, args = [], options = {}) {
-  return execFileSync(command, args, {
-    stdio: "inherit",
-    ...options,
-  });
+  return execFileSync(command, args, { stdio: "inherit", ...options });
 }
 
 function runNpm(scriptName) {
-  if (process.platform === "win32") {
-    return run(shellCommand, ["/d", "/s", "/c", "npm", "run", scriptName]);
-  }
-
-  return run("npm", ["run", scriptName]);
+  return process.platform === "win32"
+    ? run(shellCommand, ["/d", "/s", "/c", "npm", "run", scriptName])
+    : run("npm", ["run", scriptName]);
 }
 
 function capture(command, args = []) {
-  return execFileSync(command, args, {
-    encoding: "utf-8",
-    stdio: ["ignore", "pipe", "pipe"],
-  }).trim();
+  return execFileSync(command, args, { encoding: "utf-8", stdio: ["ignore", "pipe", "pipe"] }).trim();
 }
 
 function isGitRepo() {
@@ -51,7 +43,6 @@ function hasOriginRemote() {
 
 function ensureDistMetaFiles() {
   const source = existsSync(rootCname) ? rootCname : existsSync(publicCname) ? publicCname : null;
-
   mkdirSync(distDir, { recursive: true });
 
   if (source) {
@@ -84,13 +75,14 @@ if (!hasOriginRemote()) {
 console.log("Staging deployable files...");
 run("git", ["add", "-A"]);
 
-let hasStagedChanges = true;
-try {
-  execFileSync("git", ["diff", "--cached", "--quiet"], { stdio: "ignore" });
-  hasStagedChanges = false;
-} catch {
-  hasStagedChanges = true;
-}
+const hasStagedChanges = (() => {
+  try {
+    execFileSync("git", ["diff", "--cached", "--quiet"], { stdio: "ignore" });
+    return false;
+  } catch {
+    return true;
+  }
+})();
 
 if (hasStagedChanges) {
   console.log("Committing changes...");
@@ -100,7 +92,6 @@ if (hasStagedChanges) {
 }
 
 const currentBranch = capture("git", ["rev-parse", "--abbrev-ref", "HEAD"]);
-
 if (!currentBranch || currentBranch === "HEAD") {
   console.log("Detached HEAD detected. Skipping push.");
   process.exit(0);
@@ -108,5 +99,4 @@ if (!currentBranch || currentBranch === "HEAD") {
 
 console.log(`Pushing to origin ${currentBranch}...`);
 run("git", ["push", "origin", currentBranch]);
-
 console.log("Deploy done. GitHub Actions will publish to Pages shortly.");

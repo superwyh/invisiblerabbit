@@ -90,7 +90,22 @@ export const StudioAboutModal: React.FC<StudioAboutModalProps> = ({
             alt="不见兔"
             className="h-9 sm:h-11 w-auto object-contain mb-5"
           />
-          <p>{manifestoText}</p>
+          {lang === 'zh' ? (
+            <p>
+              <a
+                href="https://in.visiblerabbit.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={playClickSound}
+                className="text-zinc-900 underline underline-offset-4 hover:text-zinc-500 transition-colors"
+              >
+                Invisible Rabbit
+              </a>{' '}
+              {manifestoText}
+            </p>
+          ) : (
+            <p>{manifestoText}</p>
+          )}
         </div>
 
         {team && (

@@ -8,7 +8,7 @@ export const INITIAL_STUDIO_INFO: StudioInfo = {
   established: '2025',
   location: 'Beijing / Shijiazhuang',
   manifesto: 'Invisible Rabbit is an independent game studio based in Beijing and Shijiazhuang. We develop games for Steam along two parallel paths: experimental works that make room for unfamiliar ideas, and more focused games that take the simple pleasure of play seriously.',
-  manifestoZh: '北京不见兔科技有限公司成立于 2025 年，团队分布于北京与石家庄，专注于 Steam 独立游戏开发。我们有两条并行的产品线：一条用来冒险，做一些玩法上更实验、更偏探索性的作品；另一条用来沉淀，做一些类型更明确、玩法更成熟、完成度更高的作品，把游戏最朴素的乐趣认真做到位。',
+  manifestoZh: '正式成立于 2025 年，团队分布于北京与石家庄，专注于 Steam 独立游戏开发。我们喜欢尝试新鲜、有趣、与众不同的玩法，尤其热衷于那些打破常规、充满创意的游戏设计。我们相信，游戏的魅力在于不断带来新的体验，也希望通过自己的作品，让玩家发现更多意想不到的乐趣。',
   socials: [],
   team: {
     zh: {

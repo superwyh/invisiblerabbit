@@ -12,6 +12,23 @@ interface GameDetailModalProps {
   onSelectGame: (game: GameItem) => void;
 }
 
+const LaurelBranch = ({ className }: { className: string }) => (
+  <svg viewBox="0 0 48 180" fill="currentColor" aria-hidden="true" className={className}>
+    <path d="M42 174C13 150 6 111 12 73C15 50 23 30 35 12" fill="none" stroke="currentColor" strokeWidth="1.5" />
+    <ellipse cx="31" cy="17" rx="4" ry="10" transform="rotate(26 31 17)" />
+    <ellipse cx="20" cy="42" rx="5" ry="11" transform="rotate(-32 20 42)" />
+    <ellipse cx="32" cy="47" rx="5" ry="10" transform="rotate(54 32 47)" />
+    <ellipse cx="10" cy="64" rx="5" ry="11" transform="rotate(-30 10 64)" />
+    <ellipse cx="27" cy="69" rx="5" ry="11" transform="rotate(56 27 69)" />
+    <ellipse cx="7" cy="91" rx="5" ry="11" transform="rotate(-14 7 91)" />
+    <ellipse cx="26" cy="94" rx="5" ry="11" transform="rotate(72 26 94)" />
+    <ellipse cx="10" cy="119" rx="5" ry="11" transform="rotate(-34 10 119)" />
+    <ellipse cx="30" cy="119" rx="5" ry="11" transform="rotate(76 30 119)" />
+    <ellipse cx="21" cy="146" rx="5" ry="11" transform="rotate(-47 21 146)" />
+    <ellipse cx="38" cy="140" rx="5" ry="10" transform="rotate(57 38 140)" />
+  </svg>
+);
+
 export const GameDetailModal: React.FC<GameDetailModalProps> = ({
   game,
   allGames,
@@ -50,11 +67,11 @@ export const GameDetailModal: React.FC<GameDetailModalProps> = ({
     ? [{ organizer: game.awardOrganizer ?? '', awards: game.awards }]
     : [];
   const awardGroups = localizedGame?.awardGroups ?? game.awardGroups ?? fallbackAwardGroups;
-  const labels: Record<Language, { awards: string; organizer: string; close: string }> = {
-    zh: { awards: '获奖', organizer: '主办方：', close: '关闭 (Esc)' },
-    en: { awards: 'AWARDS', organizer: 'Organized by: ', close: 'Close (Esc)' },
-    ja: { awards: '受賞歴', organizer: '主催：', close: '閉じる (Esc)' },
-    ko: { awards: '수상', organizer: '주최：', close: '닫기 (Esc)' },
+  const labels: Record<Language, { awards: string; close: string }> = {
+    zh: { awards: '获奖与入选', close: '关闭 (Esc)' },
+    en: { awards: 'AWARDS & SELECTIONS', close: 'Close (Esc)' },
+    ja: { awards: '受賞・選出', close: '閉じる (Esc)' },
+    ko: { awards: '수상 및 선정', close: '닫기 (Esc)' },
   };
 
   return (
@@ -131,25 +148,34 @@ export const GameDetailModal: React.FC<GameDetailModalProps> = ({
           ))}
 
           {awardGroups.length > 0 && (
-            <section className="pt-2 border-t border-zinc-100 space-y-2">
-              <span className="text-[11px] font-mono-code text-zinc-400 uppercase tracking-wider block">
+            <section aria-label={labels[lang].awards} className="border-t border-zinc-200 pt-6">
+              <h2 className="text-xs font-mono-code text-zinc-600 uppercase tracking-wider">
                 {labels[lang].awards}
-              </span>
-              <div className="space-y-3">
-                {awardGroups.map((group, index) => (
-                  <div key={`${group.organizer}-${group.awards.join('-')}`} className={index > 0 ? 'pt-3 border-t border-zinc-100' : ''}>
-                    {group.organizer && (
-                      <p className="text-xs text-zinc-500 mb-2">
-                        {labels[lang].organizer}{group.organizer}
-                      </p>
-                    )}
-                    <ul className="flex flex-wrap gap-2">
-                      {group.awards.map((award) => (
-                        <li key={award} className="text-xs text-zinc-800 border border-zinc-200 rounded-full px-3 py-1">
-                          {award}
-                        </li>
-                      ))}
-                    </ul>
+              </h2>
+              <div className="grid gap-6 sm:grid-cols-2">
+                {awardGroups.map((group) => (
+                  <div key={`${group.organizer}-${group.awards.join('-')}`} className="relative flex min-h-52 items-center justify-center px-12 py-7 text-center text-zinc-950">
+                    <LaurelBranch className="pointer-events-none absolute left-0 top-1/2 h-44 w-12 -translate-y-1/2" />
+                    <LaurelBranch className="pointer-events-none absolute right-0 top-1/2 h-44 w-12 -translate-y-1/2 -scale-x-100" />
+                    <div>
+                      <ul className="space-y-2.5 font-display text-base font-semibold leading-relaxed">
+                        {group.awards.map((award) => (
+                          <li key={award} aria-label={award}>
+                            {award === 'SELECTED INDIE 80' ? (
+                              <>
+                                <span className="block font-mono-code text-[11px] tracking-[0.2em]">SELECTED </span>
+                                <span className="mt-2 block text-2xl font-bold tracking-wide">INDIE 80</span>
+                              </>
+                            ) : award}
+                          </li>
+                        ))}
+                      </ul>
+                      {group.organizer && (
+                        <p className="mt-5 text-xs leading-relaxed text-zinc-600">
+                          {group.organizer}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>

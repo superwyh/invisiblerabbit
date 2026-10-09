@@ -8,9 +8,14 @@ import { DEFAULT_GAMES } from '../data/defaultGames';
 import { ExhibitionAlbum, ExhibitionList, EXHIBITIONS } from './ExhibitionList';
 
 test('exhibitions show photo covers and open multi-photo albums with the correct localized awards above the photos', () => {
-  assert.deepEqual(EXHIBITIONS.map(event => event.date), ['2026-09', '2025-09']);
+  assert.deepEqual(EXHIBITIONS.map(event => event.date), ['2026-09', '2025-10']);
   assert.deepEqual(EXHIBITIONS.map(event => event.titles.zh), ['东京电玩展', '「摊开玩」独立游戏市集']);
   assert.equal(EXHIBITIONS[1].titles.en, 'Booom IndieFair');
+  assert.deepEqual(EXHIBITIONS.map(event => event.details.zh.date), ['2026年9月17日—20日', '2025年10月18日—19日']);
+  assert.match(EXHIBITIONS[0].details.zh.organizer, /CESA.*日经 BP.*Sony Music Solutions/);
+  assert.equal(EXHIBITIONS[1].details.zh.organizer, '机核 GCORES · BOOOM 暴造游戏孵化器');
+  assert.match(EXHIBITIONS[0].details.zh.venue, /幕张展览馆/);
+  assert.match(EXHIBITIONS[1].details.zh.venue, /东进国际中心 B1 下沉广场/);
   assert.deepEqual(EXHIBITIONS.map(event => event.photos.length), [5, 5]);
   assert.ok(!EXHIBITIONS[1].photos.includes('/exhibitions/booom-indiefair-2025/photo-01.jpg'));
   assert.deepEqual(EXHIBITIONS.map(event => event.awardGroupIndex), [1, 0]);
@@ -39,6 +44,13 @@ test('exhibitions show photo covers and open multi-photo albums with the correct
       assert.ok(markup.includes(`src="${event.photos[0]}"`));
 
       const album = renderToStaticMarkup(<ExhibitionAlbum exhibition={event} lang={lang} />);
+      assert.doesNotMatch(album, /台风|typhoon|canceled|台風|中止|태풍|취소/i);
+      assert.equal((album.match(/<dt\b/g) ?? []).length, 3);
+      assert.equal((album.match(/<dd\b/g) ?? []).length, 3);
+      assert.ok(album.indexOf('<dl') < album.indexOf('<section'));
+      for (const detail of Object.values(event.details[lang])) {
+        assert.ok(album.includes(renderToStaticMarkup(<>{detail}</>)));
+      }
       const groups = room.locales?.[lang]?.awardGroups ?? room.awardGroups!;
       const group = groups[event.awardGroupIndex];
       const otherGroup = groups[1 - event.awardGroupIndex];

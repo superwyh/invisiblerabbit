@@ -8,12 +8,36 @@ import { AwardBadges } from './AwardBadges';
 export const EXHIBITIONS = [
   {
     id: 'tankaiwan-2025',
-    date: '2025-09',
+    date: '2025-10',
     titles: {
       zh: '「摊开玩」独立游戏市集',
       en: 'Booom IndieFair',
       ja: '「摊开玩」 インディーゲームマーケット',
       ko: '탄카이완 인디 게임 마켓',
+    },
+    // Official event details: https://www.gcores.com/articles/204396
+    // Organizer: https://www.gcores.com/articles/204132
+    details: {
+      zh: {
+        organizer: '机核 GCORES · BOOOM 暴造游戏孵化器',
+        date: '2025年10月18日—19日',
+        venue: '中国北京市朝阳区东进国际中心 B1 下沉广场',
+      },
+      en: {
+        organizer: 'GCORES · BOOOM Game Incubator',
+        date: 'October 18–19, 2025',
+        venue: 'B1 Sunken Plaza, Dongjin International Center, Chaoyang District, Beijing, China',
+      },
+      ja: {
+        organizer: '機核 GCORES · BOOOM ゲームインキュベーター',
+        date: '2025年10月18日〜19日',
+        venue: '中国・北京市朝陽区 東進国際中心 B1 サンクンプラザ',
+      },
+      ko: {
+        organizer: 'GCORES · BOOOM 게임 인큐베이터',
+        date: '2025년 10월 18–19일',
+        venue: '중국 베이징 차오양구 둥진 국제센터 B1 선큰 광장',
+      },
     },
     awardGroupIndex: 0,
     photos: [
@@ -33,6 +57,29 @@ export const EXHIBITIONS = [
       ja: '東京ゲームショウ',
       ko: '도쿄 게임쇼',
     },
+    // https://tgs.cesa.or.jp/2026/en/about
+    details: {
+      zh: {
+        organizer: '日本计算机娱乐协会（CESA）；共同主办：日经 BP、Sony Music Solutions',
+        date: '2026年9月17日—20日',
+        venue: '日本千叶市 · 幕张展览馆（Makuhari Messe）',
+      },
+      en: {
+        organizer: "Computer Entertainment Supplier's Association (CESA); co-organizers: Nikkei BP, Sony Music Solutions",
+        date: 'September 17–20, 2026',
+        venue: 'Makuhari Messe, Chiba, Japan',
+      },
+      ja: {
+        organizer: '一般社団法人コンピュータエンターテインメント協会（CESA）；共催：日経 BP、ソニー・ミュージックソリューションズ',
+        date: '2026年9月17日〜20日',
+        venue: '幕張メッセ（日本・千葉市）',
+      },
+      ko: {
+        organizer: '일본 컴퓨터 엔터테인먼트 협회(CESA); 공동 주최: Nikkei BP, Sony Music Solutions',
+        date: '2026년 9월 17–20일',
+        venue: '일본 지바시 마쿠하리 멧세',
+      },
+    },
     awardGroupIndex: 1,
     photos: [
       '/exhibitions/tgs-2026/cover.jpg',
@@ -44,11 +91,11 @@ export const EXHIBITIONS = [
   },
 ].sort((a, b) => b.date.localeCompare(a.date));
 
-const labels: Record<Language, { section: string; close: string; awards: string; photo: string }> = {
-  zh: { section: '参展', close: '关闭相册 (Esc)', awards: '获奖与入选', photo: '照片' },
-  en: { section: 'Exhibitions', close: 'Close album (Esc)', awards: 'AWARDS & SELECTIONS', photo: 'Photo' },
-  ja: { section: '出展', close: 'アルバムを閉じる (Esc)', awards: '受賞・選出', photo: '写真' },
-  ko: { section: '전시 참가', close: '앨범 닫기 (Esc)', awards: '수상 및 선정', photo: '사진' },
+const labels: Record<Language, { section: string; close: string; awards: string; photo: string; organizer: string; date: string; venue: string }> = {
+  zh: { section: '参展', close: '关闭相册 (Esc)', awards: '获奖与入选', photo: '照片', organizer: '活动组织方', date: '活动日期', venue: '活动地点' },
+  en: { section: 'Exhibitions', close: 'Close album (Esc)', awards: 'AWARDS & SELECTIONS', photo: 'Photo', organizer: 'Organizers', date: 'Dates', venue: 'Venue' },
+  ja: { section: '出展', close: 'アルバムを閉じる (Esc)', awards: '受賞・選出', photo: '写真', organizer: '主催', date: '開催日', venue: '会場' },
+  ko: { section: '전시 참가', close: '앨범 닫기 (Esc)', awards: '수상 및 선정', photo: '사진', organizer: '주최', date: '행사 날짜', venue: '장소' },
 };
 
 export const ExhibitionAlbum = ({ exhibition, lang }: { exhibition: typeof EXHIBITIONS[number]; lang: Language }) => {
@@ -59,6 +106,14 @@ export const ExhibitionAlbum = ({ exhibition, lang }: { exhibition: typeof EXHIB
 
   return (
     <>
+      <dl className="mb-6 grid grid-cols-[5rem_minmax(0,1fr)] gap-x-4 gap-y-2 border-b border-zinc-200 pb-6 text-sm leading-relaxed">
+        {(['organizer', 'date', 'venue'] as const).map(field => (
+          <React.Fragment key={field}>
+            <dt className="text-xs leading-relaxed text-zinc-500">{labels[lang][field]}</dt>
+            <dd className="min-w-0 text-zinc-700">{exhibition.details[lang][field]}</dd>
+          </React.Fragment>
+        ))}
+      </dl>
       <section aria-label={labels[lang].awards} className="mb-6 border-b border-zinc-200 pb-6">
         <h2 className="text-center font-display text-sm text-zinc-700">{gameTitle}</h2>
         <AwardBadges groups={[awardGroup]} />

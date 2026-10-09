@@ -4,6 +4,7 @@ import { GameItem, Language, StudioInfo } from './types';
 import { DEFAULT_GAMES, INITIAL_STUDIO_INFO } from './data/defaultGames';
 import { GameDetailModal } from './components/GameDetailModal';
 import { StudioAboutModal } from './components/StudioAboutModal';
+import { ExhibitionList } from './components/ExhibitionList';
 import { playClickSound, playModalOpenSound } from './utils/audio';
 
 export default function App() {
@@ -50,7 +51,7 @@ export default function App() {
           onClick={handleToggleLang}
           className="text-xs font-mono-code text-zinc-400 hover:text-zinc-900 transition-colors uppercase tracking-wider cursor-pointer"
         >
-          {languageLabels[languages[(languages.indexOf(lang) + 1) % languages.length]]}
+          {languageLabels[lang]}
         </button>
       </motion.header>
 
@@ -106,6 +107,7 @@ export default function App() {
             );
           })}
         </div>
+        <ExhibitionList lang={lang} />
       </main>
 
       {/* Footer: Clean empty spacing */}
